@@ -19,7 +19,7 @@ export const homepageData = {
   stats: [
     { label: '机场排行榜单', value: 'TOP 10', unit: '实时榜单' },
     { label: '评测对比维度', value: '10+', unit: '项测试' },
-    { label: '覆盖品牌库', value: '23+', unit: '个品牌' },
+    { label: '覆盖品牌库', value: '23个', unit: '收录品牌' },
     { label: '月度内容更新', value: '98%', unit: '保持最新' },
   ],
   features: [
