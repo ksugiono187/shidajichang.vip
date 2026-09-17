@@ -4,7 +4,6 @@ import LandingLayout from '../../layouts/LandingLayout.astro';
 import FAQ from '../../components/FAQ.astro';
 import CTASection from '../../components/CTASection.astro';
 import BrandNavButtons from '../../components/BrandNavButtons.astro';
-import { redirectsMap } from '../../data/redirects';
 import { couponData } from '../../data/coupons';
 import { sortBrands } from '../../data/brands';
 
@@ -31,7 +30,6 @@ const { brand, prevBrand, nextBrand } = Astro.props;
 const benchmark = getBrandBenchmark(brand.slug);
 const scoreBreakdown = calculateBrandScore(brand.slug);
 const { Content } = await brand.render();
-const redirectInfo = redirectsMap[brand.slug];
 const goUrl = `/go/${brand.slug}`;
 const coupon = couponData[brand.slug];
 const brandSpec = brandDetailsMap[brand.slug] || {

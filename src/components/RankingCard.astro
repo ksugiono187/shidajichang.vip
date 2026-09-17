@@ -22,7 +22,7 @@ interface Props {
   paymentMethods?: string[];
   whyChoose: string;
   packages: PackageTier[];
-  queryUrl: string;
+  queryUrl?: string;
   detailUrl: string;
 }
 
@@ -40,7 +40,6 @@ const {
   paymentMethods = ['支付宝', '微信', 'USDT'],
   whyChoose,
   packages,
-  queryUrl,
   detailUrl,
 } = Astro.props;
 
