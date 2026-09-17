@@ -13,3 +13,4 @@ scratch/
 # logs & OS files
 .DS_Store
 *.log
+*.zip
