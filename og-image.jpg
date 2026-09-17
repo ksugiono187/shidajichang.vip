@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/>
+      <stop offset="50%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="brand-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg-grad)"/>
+  <circle cx="1000" cy="150" r="300" fill="#6366f1" opacity="0.15"/>
+  <circle cx="200" cy="500" r="250" fill="#38bdf8" opacity="0.12"/>
+  <rect x="80" y="80" width="1040" height="470" rx="24" fill="none" stroke="url(#brand-glow)" stroke-width="2" stroke-opacity="0.3"/>
+  <text x="140" y="240" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="28" font-weight="700" letter-spacing="4">SHIDAJICHANG.VIP</text>
+  <text x="140" y="340" fill="#ffffff" font-family="system-ui, sans-serif" font-size="64" font-weight="900" letter-spacing="-1">十大机场评测与网络指南平台</text>
+  <text x="140" y="420" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="28" font-weight="400">专业的中文网络服务评测与技术指南 · 深度实测 · 中立推荐</text>
+</svg>

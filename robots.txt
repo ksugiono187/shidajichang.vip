@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shidajichang.vip/sitemap-index.xml
