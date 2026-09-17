@@ -1,0 +1,86 @@
+{
+  "brandSlug": "firefly",
+  "brandName": "Firefly机场",
+  "testDate": "2026-09-15",
+  "testTime": "21:00 - 22:30 (黄金晚高峰)",
+  "testLocation": "上海市 (Shanghai, China)",
+  "isp": "中国电信 1000M FTTH (AS4812)",
+  "clientApp": "Clash Verge Rev (Mihomo Core v1.18.7)",
+  "mode": "TUN 模式 (Fake-IP DNS)",
+  "summary": {
+    "avgPingMs": 21,
+    "avgPacketLossPercent": 0.05,
+    "maxDownloadMbps": 945,
+    "streamingUnlockRate": "100%"
+  },
+  "records": [
+    {
+      "nodeName": "香港 01 专线 (0.5x)",
+      "protocol": "VLESS-Reality",
+      "pingMs": 21,
+      "jitterMs": 1.8,
+      "packetLossPercent": 0.02,
+      "downloadMbps": 945,
+      "uploadMbps": 210,
+      "firstFrameMs": 250,
+      "ipType": "原生住宅出口 IP",
+      "streamingUnlock": [
+        "Netflix 4K",
+        "Disney+",
+        "YouTube Premium",
+        "OpenAI (ChatGPT)"
+      ]
+    },
+    {
+      "nodeName": "日本 02 专线 (1.0x)",
+      "protocol": "Hysteria2",
+      "pingMs": 44,
+      "jitterMs": 2.5,
+      "packetLossPercent": 0.05,
+      "downloadMbps": 879,
+      "uploadMbps": 195,
+      "firstFrameMs": 340,
+      "ipType": "原生机房出口 IP",
+      "streamingUnlock": [
+        "Netflix 4K",
+        "Disney+",
+        "DMM",
+        "OpenAI (ChatGPT)"
+      ]
+    },
+    {
+      "nodeName": "新加坡 01 (1.0x)",
+      "protocol": "TUIC v5",
+      "pingMs": 57,
+      "jitterMs": 3.2,
+      "packetLossPercent": 0.08,
+      "downloadMbps": 832,
+      "uploadMbps": 180,
+      "firstFrameMs": 410,
+      "ipType": "原生住宅出口 IP",
+      "streamingUnlock": [
+        "Netflix 4K",
+        "Disney+",
+        "HBO Max",
+        "Claude 3.5"
+      ]
+    },
+    {
+      "nodeName": "美国 洛杉矶 01 (1.0x)",
+      "protocol": "VLESS-Reality",
+      "pingMs": 134,
+      "jitterMs": 4.8,
+      "packetLossPercent": 0.12,
+      "downloadMbps": 756,
+      "uploadMbps": 155,
+      "firstFrameMs": 620,
+      "ipType": "原生机房出口 IP",
+      "streamingUnlock": [
+        "Netflix 4K",
+        "Hulu",
+        "OpenAI (ChatGPT)",
+        "Claude 3.5"
+      ]
+    }
+  ]
+}

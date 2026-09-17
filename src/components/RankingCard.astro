@@ -1,0 +1,266 @@
+---
+import { couponData } from '../data/coupons';
+
+interface PackageTier {
+  name: string;
+  price: string;
+  traffic: string;
+  devices: string;
+}
+
+interface Props {
+  rank: number;
+  name: string;
+  slug: string;
+  badge?: string;
+  rating?: string;
+  slogan: string;
+  startPrice: string;
+  protocols: string[];
+  locations: string[];
+  unlocks: string[];
+  paymentMethods?: string[];
+  whyChoose: string;
+  packages: PackageTier[];
+  queryUrl: string;
+  detailUrl: string;
+}
+
+const {
+  rank,
+  name,
+  slug,
+  badge = '推荐',
+  rating = '4.9',
+  slogan,
+  startPrice,
+  protocols,
+  locations,
+  unlocks,
+  paymentMethods = ['支付宝', '微信', 'USDT'],
+  whyChoose,
+  packages,
+  queryUrl,
+  detailUrl,
+} = Astro.props;
+
+const coupon = couponData[slug];
+---
+
+<div id={slug} class="relative rounded-3xl bg-dark-card border border-dark-border hover:border-brand-500/50 hover:shadow-glow-md transition-all duration-300 p-6 sm:p-8 space-y-6">
+  <!-- Top Header Row -->
+  <div class="flex flex-wrap items-start justify-between gap-4 border-b border-dark-border/60 pb-5">
+    <div class="flex items-start gap-3">
+      <!-- Rank Badge -->
+      <div class={`w-10 h-10 rounded-2xl shrink-0 flex items-center justify-center font-black text-lg shadow-md ${
+        rank === 1 ? 'bg-gradient-to-tr from-amber-500 to-yellow-300 text-black' :
+        rank === 2 ? 'bg-gradient-to-tr from-slate-300 to-slate-100 text-black' :
+        rank === 3 ? 'bg-gradient-to-tr from-amber-700 to-amber-500 text-white' :
+        'bg-brand-600/20 text-brand-glow border border-brand-500/30'
+      }`}>
+        #{rank}
+      </div>
+
+      <!-- Title & Meta -->
+      <div class="space-y-1">
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <h3 class="text-xl font-bold text-white tracking-tight">
+            {name}
+          </h3>
+          <span class="text-xs font-semibold text-brand-glow bg-brand-600/20 border border-brand-500/30 px-2.5 py-0.5 rounded-full">
+            {badge}
+          </span>
+          {coupon && (
+            <span
+              class="copy-coupon-tag cursor-pointer text-xs font-bold text-amber-300 bg-amber-500/20 border border-amber-500/40 px-2.5 py-0.5 rounded-full hover:bg-amber-500/30 transition-all flex items-center gap-1"
+              data-code={coupon.code}
+              title="点击复制优惠码"
+            >
+              🎟️ {coupon.label}：<code class="font-mono underline">{coupon.code}</code>
+            </span>
+          )}
+        </div>
+        <div class="flex items-center gap-3 text-xs text-gray-400 flex-wrap">
+          <span class="text-amber-400 font-bold">⭐⭐⭐⭐⭐ {rating}</span>
+          <span class="text-gray-300 font-medium">{slogan}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Starting Price Display -->
+    <div class="text-right">
+      <div class="text-[11px] text-gray-400 uppercase tracking-wider">起步参考价</div>
+      <div class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-brand-glow">
+        {startPrice}
+      </div>
+    </div>
+  </div>
+
+  <!-- Coupon Highlight Strip if available -->
+  {coupon && (
+    <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between gap-3 text-xs flex-wrap">
+      <div class="flex items-center gap-2 text-amber-200 flex-wrap">
+        <span class="font-bold bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">🎟️ 专属优惠券</span>
+        <span>{coupon.label}折扣代码：<strong class="font-mono text-amber-300 text-sm px-1.5 py-0.5 bg-gray-900 rounded border border-amber-500/40">{coupon.code}</strong></span>
+        <span class="text-[11px] text-amber-400/80 font-mono">（最近核验: {coupon.updatedAt}）</span>
+      </div>
+      <button
+        type="button"
+        class="copy-coupon-btn shrink-0 px-3.5 py-1.5 rounded-lg text-xs font-bold text-black bg-amber-400 hover:bg-amber-300 active:scale-95 transition-all cursor-pointer shadow-sm"
+        data-code={coupon.code}
+      >
+        复制优惠码
+      </button>
+    </div>
+  )}
+
+  <!-- Why Choose Highlight Box -->
+  <div class="p-3.5 rounded-xl bg-brand-600/10 border border-brand-500/20 flex items-center gap-2.5 text-xs text-gray-200">
+    <span class="shrink-0 font-bold text-brand-glow bg-brand-600/20 px-2 py-0.5 rounded">💡 选购亮点</span>
+    <span class="leading-relaxed">{whyChoose}</span>
+  </div>
+
+  <!-- Parameters Grid (线路、支付、节点、解锁) -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+    <!-- 线路协议 -->
+    <div class="p-3.5 rounded-2xl bg-dark-bg/60 border border-dark-border/60 space-y-2">
+      <div class="text-gray-400 font-semibold flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-brand-glow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        线路协议
+      </div>
+      <div class="flex flex-wrap gap-1.5">
+        {protocols.map((p) => (
+          <span class="px-2 py-0.5 rounded bg-gray-800 text-gray-200 border border-gray-700">
+            {p}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- 支付方式 -->
+    <div class="p-3.5 rounded-2xl bg-dark-bg/60 border border-dark-border/60 space-y-2">
+      <div class="text-gray-400 font-semibold flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+        支付支持
+      </div>
+      <div class="flex flex-wrap gap-1.5">
+        {paymentMethods.map((pm) => (
+          <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+            {pm}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- 节点覆盖 -->
+    <div class="p-3.5 rounded-2xl bg-dark-bg/60 border border-dark-border/60 space-y-2">
+      <div class="text-gray-400 font-semibold flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V11m-1.614-6.802a9.04 9.04 0 00-2.836-1.127 shadow" />
+        </svg>
+        节点覆盖
+      </div>
+      <div class="flex flex-wrap gap-1.5">
+        {locations.map((loc) => (
+          <span class="px-2 py-0.5 rounded bg-gray-800/80 text-gray-300 border border-gray-700/80">
+            {loc}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- 流媒体与AI解锁 -->
+    <div class="p-3.5 rounded-2xl bg-dark-bg/60 border border-dark-border/60 space-y-2">
+      <div class="text-gray-400 font-semibold flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        解锁兼容
+      </div>
+      <div class="flex flex-wrap gap-1.5">
+        {unlocks.map((u) => (
+          <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">
+            {u}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Package Reference Table -->
+  <div class="overflow-x-auto rounded-2xl border border-dark-border bg-dark-bg/40">
+    <table class="w-full text-left text-xs border-collapse">
+      <thead>
+        <tr class="bg-gray-900/80 text-gray-400 font-semibold border-b border-dark-border">
+          <th class="p-3">套餐方案</th>
+          <th class="p-3">参考价格</th>
+          <th class="p-3">月度流量</th>
+          <th class="p-3">设备限制</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-dark-border/40 text-gray-300">
+        {packages.map((pkg) => (
+          <tr class="hover:bg-gray-800/30">
+            <td class="p-3 font-medium text-white">{pkg.name}</td>
+            <td class="p-3 text-brand-glow font-mono font-semibold">{pkg.price}</td>
+            <td class="p-3">{pkg.traffic}</td>
+            <td class="p-3 text-gray-400">{pkg.devices}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer Actions Row -->
+  <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 border-t border-dark-border/60 text-xs">
+    <div class="flex items-center gap-3 w-full sm:w-auto">
+      {queryUrl && queryUrl !== '#' && (
+        <a
+          href={queryUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-full sm:w-auto px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 shadow-glow-sm hover:shadow-glow-md transition-all text-center flex items-center justify-center gap-1.5"
+        >
+          前往官方主页查询
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      )}
+
+      <a
+        href={detailUrl}
+        class="w-full sm:w-auto px-5 py-3 rounded-xl font-semibold text-gray-300 bg-gray-800/80 hover:bg-gray-700 hover:text-white transition-colors text-center"
+      >
+        查看详细评测
+      </a>
+    </div>
+
+    <div class="text-[11px] text-gray-500 italic">
+      * 价格与规格以官方实际公布为准，本站不提供商业担保
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.copy-coupon-btn, .copy-coupon-tag');
+    if (!btn) return;
+    const code = btn.getAttribute('data-code');
+    if (code) {
+      navigator.clipboard.writeText(code).then(() => {
+        const oldText = btn.innerText;
+        btn.innerText = '✅ 已复制';
+        setTimeout(() => { btn.innerText = oldText; }, 2000);
+      }).catch(() => {
+        prompt('优惠码为：', code);
+      });
+    }
+  });
+</script>
+

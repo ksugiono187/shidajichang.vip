@@ -1,0 +1,56 @@
+---
+interface RowItem {
+  name: string;
+  values: string[];
+}
+
+interface Props {
+  headers?: string[];
+  rows?: RowItem[];
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  headers = ['对比维度', '方案 A (标准型)', '方案 B (极速型)', '方案 C (企业级)'],
+  rows = [
+    { name: '高峰期稳定性', values: ['良好 (98.5%)', '极佳 (99.9%)', '专用通道 (100%)'] },
+    { name: '全球节点分布', values: ['30+ 热门节点', '60+ 优质节点', '100+ BGP/IPLC 节点'] },
+    { name: '协议支持度', values: ['SS / V2Ray', 'Trojan / VLESS / Hysteria2', '全协议支持 + 独立专线'] },
+    { name: '性价比评级', values: ['⭐⭐⭐⭐', '⭐⭐⭐⭐⭐', '⭐⭐⭐⭐'] },
+  ],
+  title,
+  subtitle,
+} = Astro.props;
+---
+
+<div class="my-8 rounded-2xl bg-dark-card border border-dark-border overflow-hidden">
+  {(title || subtitle) && (
+    <div class="p-6 border-b border-dark-border bg-dark-bg/40">
+      {title && <h3 class="text-xl font-bold text-white mb-1">{title}</h3>}
+      {subtitle && <p class="text-xs text-gray-400">{subtitle}</p>}
+    </div>
+  )}
+
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+      <thead>
+        <tr class="bg-gray-900/80 text-xs text-gray-300 font-bold uppercase tracking-wider border-b border-dark-border">
+          {headers.map((h, i) => (
+            <th class={`p-4 ${i === 0 ? 'w-1/4 min-w-[140px]' : 'w-1/4 min-w-[160px]'}`}>{h}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-dark-border/60 text-xs sm:text-sm">
+        {rows.map((row) => (
+          <tr class="hover:bg-gray-800/40 transition-colors">
+            <td class="p-4 font-semibold text-white bg-dark-bg/20">{row.name}</td>
+            {row.values.map((v) => (
+              <td class="p-4 text-gray-300">{v}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+---
+import { getCollection } from 'astro:content';
+import LandingLayout from '../../layouts/LandingLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import CTASection from '../../components/CTASection.astro';
+
+export async function getStaticPaths() {
+  const topics = await getCollection('topics');
+  return topics.map((topic) => ({
+    params: { slug: topic.slug },
+    props: { topic },
+  }));
+}
+
+const { topic } = Astro.props;
+const { Content } = await topic.render();
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+
+// 严格 Topic Cluster 关联算法：优先依文章显式声明的 topics 匹配，防止重复归类
+const topicPosts = allPosts.filter((post) => {
+  if (post.data.topics && Array.isArray(post.data.topics) && post.data.topics.length > 0) {
+    return post.data.topics.includes(topic.slug);
+  }
+  if (topic.data.categoryFilter && post.data.category === topic.data.categoryFilter) {
+    return true;
+  }
+  if (topic.data.tagsFilter && topic.data.tagsFilter.length > 0) {
+    return post.data.tags.some((tag) => topic.data.tagsFilter?.includes(tag));
+  }
+  return false;
+});
+
+const breadcrumbItems = [
+  { title: '专题聚合', href: '/topics' },
+  { title: topic.data.title },
+];
+---
+
+<LandingLayout
+  title={`${topic.data.title} - 专题指南`}
+  description={topic.data.description}
+  breadcrumbItems={breadcrumbItems}
+>
+  <div class="space-y-10 py-6">
+    <!-- Header -->
+    <div class="p-8 rounded-3xl bg-card-gradient border border-glow space-y-4">
+      <span class="text-xs font-bold text-brand-glow bg-brand-600/20 px-3 py-1 rounded-md uppercase tracking-wider">
+        TOPIC HUB ({topicPosts.length} 篇精选指南)
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white">
+        {topic.data.title}
+      </h1>
+      <p class="text-sm sm:text-base text-gray-300 max-w-3xl leading-relaxed">
+        {topic.data.description}
+      </p>
+    </div>
+
+    <!-- Topic Intro prose -->
+    <div class="prose-chinese bg-dark-card p-6 sm:p-8 rounded-2xl border border-dark-border">
+      <Content />
+    </div>
+
+    <!-- Included Posts in this Topic -->
+    <div class="space-y-6">
+      <h2 class="text-2xl font-bold text-white">专题包含的核心指南 ({topicPosts.length} 篇)</h2>
+      {topicPosts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {topicPosts.map((post) => (
+            <ArticleCard
+              title={post.data.title}
+              description={post.data.description}
+              slug={post.slug}
+              pubDate={post.data.pubDate}
+              category={post.data.category}
+              tags={post.data.tags}
+              author={post.data.author}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="text-sm text-gray-400 italic">暂无相关长文收录</p>
+      )}
+    </div>
+
+    <CTASection
+      title="查看更多专题分类？"
+      subtitle="探索全站知识图谱，找到最契合您的使用场景与指导方案。"
+      buttonText="返回专题首页"
+      buttonHref="/topics"
+    />
+  </div>
+</LandingLayout>

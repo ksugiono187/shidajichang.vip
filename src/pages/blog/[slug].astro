@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+  return posts.map((post, index) => {
+    const prevPost = index > 0 ? { title: posts[index - 1].data.title, slug: posts[index - 1].slug } : null;
+    const nextPost = index < posts.length - 1 ? { title: posts[index + 1].data.title, slug: posts[index + 1].slug } : null;
+
+    return {
+      params: { slug: post.slug },
+      props: { post, prevPost, nextPost, allPosts: posts },
+    };
+  });
+}
+
+const { post, prevPost, nextPost, allPosts } = Astro.props;
+const { Content, headings } = await post.render();
+
+// Related posts matching category or tags
+const related = allPosts.filter(
+  (p) => p.slug !== post.slug && (p.data.category === post.data.category || p.data.tags.some((t) => post.data.tags.includes(t)))
+).slice(0, 2);
+---
+
+<BlogLayout
+  title={post.data.title}
+  description={post.data.description}
+  pubDate={post.data.pubDate}
+  updatedDate={post.data.updatedDate}
+  category={post.data.category}
+  tags={post.data.tags}
+  author={post.data.author}
+  faqs={post.data.faqs}
+  headings={headings}
+  prevPost={prevPost}
+  nextPost={nextPost}
+>
+  <Content />
+  <RelatedPosts posts={related} />
+</BlogLayout>
+

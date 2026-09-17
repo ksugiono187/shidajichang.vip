@@ -1,0 +1,340 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ from '../../components/FAQ.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTASection from '../../components/CTASection.astro';
+import RankingCard from '../../components/RankingCard.astro';
+import { redirectsMap } from '../../data/redirects';
+
+const breadcrumbItems = [{ title: '稳定机场推荐专区' }];
+
+const stableBrands = [
+  {
+    rank: 1,
+    name: '微风网络 Breezenet',
+    slug: 'breezenet',
+    badge: '稳定首选',
+    rating: '9.5',
+    slogan: '大流量，极高性价比，高级 BGP 中转线路',
+    startPrice: '¥8/月',
+    whyChoose: '大流量需求与学生党首选，高级 BGP 中转为主，海量原生 IP 解锁率高，付10个月送2个月，24h 极速工单响应。',
+    protocols: ['VLESS', 'Trojan', '高级 BGP 中转'],
+    paymentMethods: ['支付宝', '微信支付', 'USDT'],
+    locations: ['中国香港', '日本', '台湾', '新加坡', '美国', '韩国'],
+    unlocks: ['海量原生解锁', 'Netflix', 'Disney+', 'ChatGPT'],
+    packages: [
+      { name: '基础大流量套餐', price: '¥8/月 （年付折算月）', traffic: '200GB /月', devices: '基本不限制连接数' },
+      { name: '高级尊享套餐', price: '¥18/月', traffic: '500GB /月', devices: '基本不限制连接数' },
+    ],
+    queryUrl: redirectsMap.breezenet.targetUrl,
+    detailUrl: '/brands/breezenet',
+  },
+  {
+    rank: 2,
+    name: '飞猫云',
+    slug: 'feimaoyun',
+    badge: '顶级专线',
+    rating: '9.8',
+    slogan: '2.5Gbps IPLC/IEPL 顶级专线，极致稳定',
+    startPrice: '¥7/月',
+    whyChoose: '外贸、高阶玩家与企业首选，顶级 2.5Gbps IPLC/IEPL 物理专线，顶级原生全媒体解锁，常驻 8 折优惠。',
+    protocols: ['VLESS', 'Hysteria 2', '2.5Gbps IPLC/IEPL'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['中国香港', '日本', '新加坡', '美国', '德国'],
+    unlocks: ['顶级原生解锁', 'Netflix 4K', 'YouTube 8K', 'ChatGPT'],
+    packages: [
+      { name: 'IEPL 专线入门版', price: '¥7/月 （年付折算月）', traffic: '150GB /月', devices: '3台 (最高支持10台)' },
+      { name: '企业顶级专线版', price: '¥25/月', traffic: '500GB /月', devices: '10台设备' },
+    ],
+    queryUrl: redirectsMap.feimaoyun.targetUrl,
+    detailUrl: '/brands/feimaoyun',
+  },
+  {
+    rank: 3,
+    name: '唯兔云',
+    slug: 'weituyun',
+    badge: '高冗余维稳',
+    rating: '8.5',
+    slogan: 'Vmess/VLESS 协议老牌维稳，高冗余备用服务器集群',
+    startPrice: '¥19.9/月',
+    whyChoose: '老牌维稳高冗余备用服务器集群，全能型适合各类用户，支持主流流媒体解锁，年付立减 20%。',
+    protocols: ['VLESS', 'Vmess', 'BGP 多线负载/直连'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['中国香港', '日本', '韩国', '美国'],
+    unlocks: ['主流流媒体解锁', 'YouTube 4K', 'ChatGPT', 'Wikipedia'],
+    packages: [
+      { name: '标准维稳版', price: '¥19.9/月', traffic: '150GB /月', devices: '基本不限制' },
+      { name: '畅享大容量版', price: '¥38/月', traffic: '400GB /月', devices: '基本不限制' },
+    ],
+    queryUrl: redirectsMap.weituyun.targetUrl,
+    detailUrl: '/brands/weituyun',
+  },
+  {
+    rank: 4,
+    name: '星岛梦',
+    slug: 'xingdaomeng',
+    badge: '亚太HKBN',
+    rating: '8.8',
+    slogan: '香港本地延迟极限优化，HKBN 纯净双栈网络',
+    startPrice: '¥25/月',
+    whyChoose: '香港本地延迟极限优化，BGP 多线负载均衡，Netflix/Disney+ 专属优化，付10个月送2个月。',
+    protocols: ['VLESS', 'Trojan', 'BGP 多线负载均衡'],
+    paymentMethods: ['支付宝', '微信支付', 'USDT'],
+    locations: ['中国香港', '新加坡', '日本东京', '台湾'],
+    unlocks: ['Netflix/Disney+ 专属', 'HBO Max', 'ChatGPT'],
+    packages: [
+      { name: '亚太 BGP 优化版', price: '¥25/月', traffic: '150GB /月', devices: '最多 8 台设备' },
+      { name: '极速尊享版', price: '¥55/月', traffic: '450GB /月', devices: '最多 8 台设备' },
+    ],
+    queryUrl: redirectsMap.xingdaomeng.targetUrl,
+    detailUrl: '/brands/xingdaomeng',
+  },
+  {
+    rank: 5,
+    name: 'U1S1',
+    slug: 'u1s1',
+    badge: '透明账单',
+    rating: '8.9',
+    slogan: '不限时按量计费模式，极简账单追踪系统',
+    startPrice: '¥20/月',
+    whyChoose: '轻度用户与查阅资料首选，BGP 多线负载均衡，全媒体原生完美解锁，年付打 7 折，秒级工单回复。',
+    protocols: ['VLESS', 'Shadowsocks', 'BGP 多线负载均衡'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['中国香港', '日本', '美国西海岸', '新加坡'],
+    unlocks: ['全媒体原生完美解锁', 'YouTube', 'ChatGPT', 'Google Workspace'],
+    packages: [
+      { name: '标准 BGP 流量版', price: '¥20/月', traffic: '120GB /月', devices: '不限制设备数' },
+      { name: '高能多端尊享版', price: '¥45/月', traffic: '350GB /月', devices: '不限制设备数' },
+    ],
+    queryUrl: redirectsMap.u1s1.targetUrl,
+    detailUrl: '/brands/u1s1',
+  },
+  {
+    rank: 6,
+    name: '光速云 LightSpeed',
+    slug: 'lightspeed',
+    badge: 'IEPL专线',
+    rating: '9.0',
+    slogan: 'IEPL 物理专线与 BGP 多线负载，傻瓜式一键客户端',
+    startPrice: '¥23/月',
+    whyChoose: '轻度用户与查阅资料首选，内置智能应用分流，TikTok/ChatGPT 无压解锁，秒级工单回复。',
+    protocols: ['VLESS', 'IEPL 专线', 'BGP 多线负载均衡'],
+    paymentMethods: ['支付宝', '微信支付', 'USDT'],
+    locations: ['中国香港 IPLC', '日本 IPLC', '美国西海岸'],
+    unlocks: ['TikTok/ChatGPT 无压解锁', 'Netflix 4K', 'Disney+', 'Claude'],
+    packages: [
+      { name: 'IEPL 专线体验版', price: '¥23/月', traffic: '148GB /月', devices: '2台 (适合单人)' },
+      { name: '极速至尊版', price: '¥58/月', traffic: '500GB /月', devices: '6台设备' },
+    ],
+    queryUrl: redirectsMap.lightspeed.targetUrl,
+    detailUrl: '/brands/lightspeed',
+  },
+  {
+    rank: 7,
+    name: '全球云',
+    slug: 'quanqiuyun',
+    badge: '50+多国寻路',
+    rating: '8.7',
+    slogan: '冷门小众国家全覆盖，全球 BGP 动态寻路',
+    startPrice: '¥20/月',
+    whyChoose: '大流量需求与学生党首选，CN2 GIA/BGP 动态寻路，TikTok/ChatGPT 无压解锁，24h 极速工单响应。',
+    protocols: ['VLESS', 'CN2 GIA', 'BGP 动态寻路'],
+    paymentMethods: ['支付宝', '微信支付', 'USDT'],
+    locations: ['亚洲 20+', '欧洲 15+', '美洲 10+', '大洋洲/非洲'],
+    unlocks: ['TikTok/ChatGPT 无压解锁', '全球多国流媒体'],
+    packages: [
+      { name: '全球寻路标准版', price: '¥20/月', traffic: '120GB /月', devices: '基本不限制连接数' },
+      { name: '全域通达旗舰版', price: '¥50/月', traffic: '400GB /月', devices: '基本不限制连接数' },
+    ],
+    queryUrl: redirectsMap.quanqiuyun.targetUrl,
+    detailUrl: '/brands/quanqiuyun',
+  },
+  {
+    rank: 8,
+    name: '光年梯',
+    slug: 'guangnianti',
+    badge: 'CN2直连大流量',
+    rating: '9.0',
+    slogan: '大流量与 P2P 下载友好，超大杯月度流量包',
+    startPrice: '¥18/月',
+    whyChoose: '外贸与跨境电商首选，CN2 GIA/AS9929 直连与 BGP 中转，全媒体原生完美解锁，7x24h 响应。',
+    protocols: ['VLESS', 'CN2 GIA', 'AS9929 直连', 'BGP中转'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['中国香港', '日本', '韩国', '美国', '新加坡'],
+    unlocks: ['全媒体原生完美解锁', 'P2P 下载友好', 'YouTube 4K', 'ChatGPT'],
+    packages: [
+      { name: 'CN2 大流量版', price: '¥18/月', traffic: '110GB /月', devices: '最多 8 台设备' },
+      { name: '长效全端进阶版', price: '¥40/月', traffic: '360GB /月', devices: '最多 8 台设备' },
+    ],
+    queryUrl: redirectsMap.guangnianti.targetUrl,
+    detailUrl: '/brands/guangnianti',
+  },
+  {
+    rank: 9,
+    name: '极连云',
+    slug: 'jilianyun',
+    badge: 'IPLC物理专线',
+    rating: '9.1',
+    slogan: '无限制客户端并发，IPLC/IEPL 物理专线',
+    startPrice: '¥18/月',
+    whyChoose: '外贸与跨境电商首选，IPLC/IEPL 物理专线，大容量带宽资源池，精选核心地区解锁，秒级工单回复。',
+    protocols: ['VLESS', 'IPLC/IEPL 物理专线'],
+    paymentMethods: ['支付宝', '微信支付', 'USDT'],
+    locations: ['香港 IPLC', '东京 IPLC', '美西物理专线'],
+    unlocks: ['精选核心地区解锁', 'Steam/Origin', 'Discord', 'ChatGPT'],
+    packages: [
+      { name: '物理专线标准版', price: '¥18/月', traffic: '100GB /月', devices: '3台设备 (可升级)' },
+      { name: '无限制并发版', price: '¥48/月', traffic: '400GB /月', devices: '不限制并发' },
+    ],
+    queryUrl: redirectsMap.jilianyun.targetUrl,
+    detailUrl: '/brands/jilianyun',
+  },
+  {
+    rank: 10,
+    name: '暮光网络',
+    slug: 'muguangwangluo',
+    badge: 'CN2 GIA直连',
+    rating: '9.2',
+    slogan: '极致低价，良心 CN2 GIA/AS9929 直连',
+    startPrice: '¥9/月',
+    whyChoose: '轻度用户与入门尝鲜首选，CN2 GIA/AS9929 高速直连，精选核心地区解锁，年付打 7 折，24h 在线客服。',
+    protocols: ['VLESS', 'CN2 GIA', 'AS9929 直连'],
+    paymentMethods: ['支付宝', '微信支付', 'USDT'],
+    locations: ['深港专线', '沪日专线', '京德专线'],
+    unlocks: ['精选核心地区解锁', 'Netflix', 'Disney+', 'ChatGPT-4'],
+    packages: [
+      { name: 'CN2 直连入门版', price: '¥9/月 （年付折算月）', traffic: '150GB /月', devices: '最多 5 台设备' },
+      { name: '企业高能直连版', price: '¥22/月', traffic: '400GB /月', devices: '最多 5 台设备' },
+    ],
+    queryUrl: redirectsMap.muguangwangluo.targetUrl,
+    detailUrl: '/brands/muguangwangluo',
+  },
+];
+
+const stableFaqs = [
+  { q: '什么是“稳定机场”的核心特征？', a: '稳定机场通常采用 IPLC 或 IEPL 国际专线或 BGP 容灾中转，不受公网拥堵波动影响，SLA 保证高连通率，且在晚高峰期不掉速、不丢包。' },
+  { q: '稳定机场适合哪些使用场景？', a: '适合对网络质量要求极高的用户，如跨国远程办公、外贸业务、实时在线游戏以及追求极致 4K/8K 无卡顿视频播放体验的用户。' },
+];
+---
+
+<BaseLayout
+  title="稳定机场推荐 - 10 大高稳定性与 IPLC 专线品牌榜单"
+  description="精选全网高稳定、低延迟、零断网的优质 IPLC 专线与 BGP 中转机场，涵盖微风网络、飞猫云、唯兔云、星岛梦、U1S1、光速云、全球云、光年梯、极连云与暮光网络。"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Page Header -->
+    <div class="space-y-4 border-b border-dark-border/80 pb-6">
+      <span class="text-xs font-bold text-emerald-400 bg-emerald-600/15 border border-emerald-500/25 px-3 py-1 rounded-md uppercase tracking-wider">
+        HIGH STABILITY & DEDICATED LINES
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        稳定机场推荐专区
+      </h1>
+      <p class="text-sm text-gray-400 max-w-3xl leading-relaxed">
+        拒绝掉线与拥堵！本专区仅收录具备 IPLC/IEPL 专线或 BGP 容灾架构、高峰期表现优异的高稳定性网络服务品牌。
+      </p>
+
+      <!-- Quick Navigation Buttons -->
+      <div class="pt-2 flex flex-wrap items-center gap-3">
+        <a
+          href="/ranking"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 hover:border-indigo-500/60 hover:bg-indigo-500/20 text-indigo-300 hover:text-white text-xs sm:text-sm font-semibold transition-all shadow-sm"
+        >
+          <svg class="w-4 h-4 text-indigo-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+          <span>查看机场排行榜</span>
+        </a>
+
+        <a
+          href="/cheap"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-500/60 hover:bg-amber-500/20 text-amber-300 hover:text-white text-xs sm:text-sm font-semibold transition-all shadow-sm"
+        >
+          <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>前往便宜机场专区</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Feature Pillars -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="p-6 rounded-2xl bg-dark-card border border-dark-border space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">
+          99.9%
+        </div>
+        <h3 class="text-base font-bold text-white">SLA 连通率保障</h3>
+        <p class="text-xs text-gray-400 leading-relaxed">
+          采用全天候监控与多主干备用路由，避免单点故障导致整体断网。
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-dark-card border border-dark-border space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">
+          IPLC
+        </div>
+        <h3 class="text-base font-bold text-white">内网点对点专线</h3>
+        <p class="text-xs text-gray-400 leading-relaxed">
+          信号不经过公网环境，彻底告别公网大局域网晚高峰严重拥堵丢包现象。
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-dark-card border border-dark-border space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">
+          REALITY
+        </div>
+        <h3 class="text-base font-bold text-white">新一代抗封锁协议</h3>
+        <p class="text-xs text-gray-400 leading-relaxed">
+          全面支持 Trojan / VLESS-Reality / Hysteria 2 协议，隐蔽性好且抗丢包能力强。
+        </p>
+      </div>
+    </div>
+
+    <!-- 10 Stable Brands Ranking Cards Grid -->
+    <section class="space-y-8">
+      <div class="border-l-4 border-emerald-500 pl-4 py-1">
+        <h2 class="text-2xl font-extrabold text-white">
+          10 大高稳定性机场推荐与规格卡片
+        </h2>
+        <p class="text-xs text-gray-400 mt-1">
+          结构化展示线路协议、支持支付、节点覆盖、解锁服务、参考套餐与官方查询入口
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        {stableBrands.map((brand) => (
+          <RankingCard
+            rank={brand.rank}
+            name={brand.name}
+            slug={brand.slug}
+            badge={brand.badge}
+            rating={brand.rating}
+            slogan={brand.slogan}
+            startPrice={brand.startPrice}
+            protocols={brand.protocols}
+            locations={brand.locations}
+            unlocks={brand.unlocks}
+            paymentMethods={brand.paymentMethods}
+            whyChoose={brand.whyChoose}
+            packages={brand.packages}
+            queryUrl={brand.queryUrl}
+            detailUrl={brand.detailUrl}
+          />
+        ))}
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <FAQ items={stableFaqs} title="稳定机场选购疑问解答" />
+
+    <CTASection
+      title="需要兼顾性价比？"
+      subtitle="访问我们的“便宜机场”推荐专区，查看平价且量大管饱的方案选购建议。"
+      buttonText="查看便宜机场推荐"
+      buttonHref="/cheap"
+    />
+  </div>
+</BaseLayout>

@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-dark: #090d16;
+    --card-dark: #111827;
+    --border-dark: #1f2937;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-dark);
+    color: #f3f4f6;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: #090d16;
+    color: #e5e7eb;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+}
+
+/* 柔和科技渐变背景 */
+.bg-gradient-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, rgba(9, 13, 22, 0) 70%);
+}
+
+.bg-card-gradient {
+  background: linear-gradient(180deg, rgba(17, 24, 39, 0.8) 0%, rgba(17, 24, 39, 0.4) 100%);
+}
+
+/* 高级边框高亮 */
+.border-glow {
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.border-glow:hover {
+  border-color: rgba(129, 140, 248, 0.5);
+  box-shadow: 0 0 20px -3px rgba(99, 102, 241, 0.2);
+}
+
+/* 中文 Markdown 内容长文排版 */
+.prose-chinese {
+  color: #d1d5db;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.prose-chinese h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.025em;
+}
+
+.prose-chinese h2 {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #f3f4f6;
+  margin-top: 2.25rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.prose-chinese h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #e5e7eb;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-chinese p {
+  margin-bottom: 1.25rem;
+  text-align: justify;
+}
+
+.prose-chinese ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose-chinese ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose-chinese li {
+  margin-bottom: 0.5rem;
+}
+
+.prose-chinese blockquote {
+  border-left: 4px solid #6366f1;
+  background-color: rgba(99, 102, 241, 0.08);
+  padding: 1rem 1.25rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  margin-bottom: 1.5rem;
+  color: #e0e7ff;
+}
+
+.prose-chinese code {
+  background-color: rgba(31, 41, 55, 0.8);
+  color: #818cf8;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+  font-family: monospace;
+}
+
+.prose-chinese pre {
+  background-color: #111827;
+  border: 1px solid #1f2937;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.prose-chinese table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+.prose-chinese th {
+  background-color: #1f2937;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid #374151;
+}
+
+.prose-chinese td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #374151;
+  background-color: rgba(17, 24, 39, 0.5);
+}
+
+.prose-chinese a {
+  color: #818cf8;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.prose-chinese a:hover {
+  color: #a5b4fc;
+}

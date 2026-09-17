@@ -1,0 +1,34 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb, { type BreadcrumbItem } from '../components/Breadcrumb.astro';
+import { siteConfig } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  breadcrumbItems?: BreadcrumbItem[];
+}
+
+const { title, description, breadcrumbItems } = Astro.props;
+
+const breadcrumbSchema = breadcrumbItems
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      'itemListElement': breadcrumbItems.map((item, index) => ({
+        '@type': 'ListItem',
+        'position': index + 1,
+        'name': item.title,
+        'item': item.href ? new URL(item.href, siteConfig.domain).href : undefined,
+      })),
+    }
+  : undefined;
+---
+
+<BaseLayout title={title} description={description} jsonLd={breadcrumbSchema}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    {breadcrumbItems && <Breadcrumb items={breadcrumbItems} />}
+
+    <slot />
+  </div>
+</BaseLayout>

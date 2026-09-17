@@ -1,0 +1,90 @@
+---
+import { siteConfig } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogType?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, any> | Array<Record<string, any>>;
+}
+
+const {
+  title,
+  description = siteConfig.description,
+  canonical,
+  ogTitle,
+  ogDescription,
+  ogType = 'website',
+  ogImage,
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+
+const pageTitle = title ? `${title} | ${siteConfig.name}` : `${siteConfig.name} - 深度评测与指南`;
+const canonicalUrl = canonical || new URL(Astro.url.pathname, siteConfig.domain).href;
+const finalOgTitle = ogTitle || pageTitle;
+const finalOgDesc = ogDescription || description;
+const finalOgImage = ogImage || `${siteConfig.domain}/og-image.jpg`;
+
+// 基础全局 JSON-LD 结构化数据 (WebSite + Organization)
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteConfig.domain}/#website`,
+  'url': siteConfig.domain,
+  'name': siteConfig.name,
+  'description': siteConfig.description,
+  'inLanguage': siteConfig.language,
+};
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${siteConfig.domain}/#organization`,
+  'name': siteConfig.name,
+  'url': siteConfig.domain,
+  'logo': `${siteConfig.domain}/favicon.svg`,
+};
+
+// 组合传入的额外页面级 jsonLd
+const extraJsonLd = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const allSchemas = [websiteSchema, organizationSchema, ...extraJsonLd];
+---
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="generator" content={Astro.generator} />
+
+  <!-- SEO 基础元标签 -->
+  <title>{pageTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+  <!-- Open Graph 标签 -->
+  <meta property="og:site_name" content={siteConfig.name} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:title" content={finalOgTitle} />
+  <meta property="og:description" content={finalOgDesc} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={finalOgImage} />
+  <meta property="og:locale" content="zh_CN" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={finalOgTitle} />
+  <meta name="twitter:description" content={finalOgDesc} />
+  <meta name="twitter:image" content={finalOgImage} />
+
+  <!-- JSON-LD 结构化数据 -->
+  {allSchemas.map((schema) => (
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  ))}
+</head>

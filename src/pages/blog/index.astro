@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryNav from '../../components/CategoryNav.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const breadcrumbItems = [{ title: '博客指南文章' }];
+---
+
+<BaseLayout title="博客文章目录 - 技术评测与实操指南" description="浏览全部网络服务深度评测、新手保姆教程、高级加密协议剖析及常见故障排查长尾指南。">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Page Header -->
+    <div class="space-y-3 border-b border-dark-border/80 pb-6">
+      <span class="text-xs font-bold text-brand-glow bg-brand-600/15 border border-brand-500/25 px-3 py-1 rounded-md uppercase tracking-wider">
+        BLOG ARCHIVE
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        技术评测与指南文章
+      </h1>
+      <p class="text-sm text-gray-400 max-w-2xl leading-relaxed">
+        收录所有客观测评报告与技术指南，基于多维度压测数据与中文阅读习惯打造。
+      </p>
+    </div>
+
+    <!-- Category Filter Nav -->
+    <CategoryNav />
+
+    <!-- Articles Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {allPosts.map((post) => (
+        <ArticleCard
+          title={post.data.title}
+          description={post.data.description}
+          slug={post.slug}
+          pubDate={post.data.pubDate}
+          category={post.data.category}
+          tags={post.data.tags}
+          author={post.data.author}
+        />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,32 @@
+---
+import SeoHead from '../components/SeoHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogType?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, any> | Array<Record<string, any>>;
+}
+
+const props = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <SeoHead {...props} />
+  <body class="min-h-screen flex flex-col bg-dark-bg text-gray-200 antialiased selection:bg-brand-600 selection:text-white">
+    <Header />
+    <main class="flex-1 w-full">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

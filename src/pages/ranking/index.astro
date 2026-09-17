@@ -1,0 +1,267 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ from '../../components/FAQ.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTASection from '../../components/CTASection.astro';
+import RankingCard from '../../components/RankingCard.astro';
+import { redirectsMap } from '../../data/redirects';
+
+const breadcrumbItems = [{ title: '2026 最新机场排行榜' }];
+
+const topRankedBrands = [
+  {
+    rank: 1,
+    name: '微风网络 Breezenet',
+    slug: 'breezenet',
+    badge: '综合首选',
+    rating: '9.5',
+    slogan: '大流量，极高性价比，开业于2022年',
+    startPrice: '¥8/月',
+    whyChoose: '大流量需求与学生党首选，高级 BGP 中转线路，海量原生 IP 解锁率高，付10个月送2个月。',
+    protocols: ['VLESS', 'Trojan', '高级 BGP 中转'],
+    paymentMethods: ['支付宝', '微信支付', 'USDT'],
+    locations: ['中国香港', '日本', '台湾', '新加坡', '美国', '韩国'],
+    unlocks: ['海量原生解锁', 'Netflix', 'Disney+', 'ChatGPT'],
+    packages: [
+      { name: '基础大流量套餐', price: '¥8/月 （年付折算月）', traffic: '200GB /月', devices: '基本不限制连接数' },
+      { name: '高级尊享套餐', price: '¥18/月', traffic: '500GB /月', devices: '基本不限制连接数' },
+    ],
+    queryUrl: redirectsMap.breezenet.targetUrl,
+    detailUrl: '/brands/breezenet',
+  },
+  {
+    rank: 2,
+    name: '飞猫云',
+    slug: 'feimaoyun',
+    badge: '顶级专线',
+    rating: '9.8',
+    slogan: '2.5Gbps IPLC/IEPL 顶级专线，极致稳定',
+    startPrice: '¥7/月',
+    whyChoose: '外贸、高阶玩家与企业首选，顶级原生全媒体解锁，常驻 8 折优惠，24h 优质客服。',
+    protocols: ['VLESS', 'Hysteria 2', '2.5Gbps IPLC/IEPL'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['中国香港', '日本', '新加坡', '美国', '德国'],
+    unlocks: ['顶级原生解锁', 'Netflix 4K', 'YouTube 8K', 'ChatGPT'],
+    packages: [
+      { name: 'IEPL 专线入门版', price: '¥7/月 （年付折算月）', traffic: '150GB /月', devices: '3台 (最高支持10台)' },
+      { name: '企业顶级专线版', price: '¥25/月', traffic: '500GB /月', devices: '10台设备' },
+    ],
+    queryUrl: redirectsMap.feimaoyun.targetUrl,
+    detailUrl: '/brands/feimaoyun',
+  },
+  {
+    rank: 3,
+    name: '暮光网络',
+    slug: 'muguangwangluo',
+    badge: '极致低价直连',
+    rating: '9.2',
+    slogan: '良心 CN2 GIA/AS9929 直连，开业于2021年',
+    startPrice: '¥9/月',
+    whyChoose: '轻度用户与入门尝鲜首选，CN2 GIA/AS9929 高速直连，年付直接打 7 折。',
+    protocols: ['VLESS', 'CN2 GIA', 'AS9929 直连'],
+    paymentMethods: ['支付宝', '微信支付', 'USDT'],
+    locations: ['中国香港', '日本', '美西', '新加坡'],
+    unlocks: ['精选核心地区解锁', 'Netflix', 'ChatGPT'],
+    packages: [
+      { name: 'CN2 直连入门版', price: '¥9/月 （年付折算月）', traffic: '150GB /月', devices: '最多 5 台设备' },
+      { name: '极速直连高配版', price: '¥22/月', traffic: '400GB /月', devices: '最多 5 台设备' },
+    ],
+    queryUrl: redirectsMap.muguangwangluo.targetUrl,
+    detailUrl: '/brands/muguangwangluo',
+  },
+  {
+    rank: 4,
+    name: 'Firefly机场',
+    slug: 'firefly',
+    badge: '游戏低延迟',
+    rating: '8.6',
+    slogan: '极低内存占用精简规则，BGP 多线负载均衡',
+    startPrice: '¥25/月',
+    whyChoose: '游戏加速与低延迟需求首选，全媒体原生完美解锁，年付立减 20%，7x24小时全天候响应。',
+    protocols: ['VLESS', 'Hysteria 2', 'BGP 多线负载均衡'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['中国香港', '日本', '韩国', '新加坡', '美国', '英国'],
+    unlocks: ['全媒体原生解锁', 'Netflix 4K', 'Steam/游戏加速', 'TikTok'],
+    packages: [
+      { name: '精简风畅玩版', price: '¥25/月', traffic: '150GB /月', devices: '不限制设备数' },
+      { name: '全频电竞版', price: '¥55/月', traffic: '500GB /月', devices: '不限制设备数' },
+    ],
+    queryUrl: redirectsMap.firefly.targetUrl,
+    detailUrl: '/brands/firefly',
+  },
+  {
+    rank: 5,
+    name: '灵猫',
+    slug: 'lingmao',
+    badge: 'AI工具防风控',
+    rating: '9.0',
+    slogan: 'AI 工具防风控专属池，无感验证码绕过',
+    startPrice: '¥25/月',
+    whyChoose: '重度流媒体玩家与 AI 开发者首选，隧道中转 + 专线，全媒体原生完美解锁。',
+    protocols: ['VLESS', '隧道中转 + 专线'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['中国香港', '日本东京', '新加坡', '美西'],
+    unlocks: ['ChatGPT 防风控池', 'Claude', 'Netflix 4K', 'Midjourney'],
+    packages: [
+      { name: 'AI 专属高能版', price: '¥25/月', traffic: '150GB /月', devices: '5台设备同时在线' },
+      { name: '重度玩家豪华版', price: '¥58/月', traffic: '450GB /月', devices: '5台设备同时在线' },
+    ],
+    queryUrl: redirectsMap.lingmao.targetUrl,
+    detailUrl: '/brands/lingmao',
+  },
+  {
+    rank: 6,
+    name: '闪跃 FlashLeap',
+    slug: 'flashleap',
+    badge: '物理专线',
+    rating: '9.1',
+    slogan: 'IPLC/IEPL 物理专线，单边拥堵控制 (BBRv3)',
+    startPrice: '¥24/月',
+    whyChoose: '大并发体育直播提速与重度流媒体玩家首选，物理专线保障，TikTok/ChatGPT 无压解锁。',
+    protocols: ['VLESS', 'Trojan', 'IPLC/IEPL 物理专线'],
+    paymentMethods: ['支付宝', '微信支付', 'USDT'],
+    locations: ['香港 IPLC', '日本 IPLC', '美西专线', '德国'],
+    unlocks: ['TikTok 无压解锁', 'ChatGPT', 'Netflix', 'Twitch直播'],
+    packages: [
+      { name: '物理专线提速版', price: '¥24/月', traffic: '150GB /月', devices: '3台设备 (可升级)' },
+      { name: '直播大并发版', price: '¥60/月', traffic: '500GB /月', devices: '8台设备' },
+    ],
+    queryUrl: redirectsMap.flashleap.targetUrl,
+    detailUrl: '/brands/flashleap',
+  },
+  {
+    rank: 7,
+    name: '无忧链接',
+    slug: 'wuyoulianjie',
+    badge: '秒级客服响应',
+    rating: '8.9',
+    slogan: '全天候秒级工单回复，一对一远程协助',
+    startPrice: '¥19/月',
+    whyChoose: '企业级高标准用户首选，CN2 GIA/AS9929 直连，支持主流流媒体解锁。',
+    protocols: ['VLESS', 'Trojan', 'CN2 GIA/AS9929 直连'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['中国香港', '日本', '新加坡', '美国'],
+    unlocks: ['主流流媒体解锁', 'Google Workspace', 'Zoom', 'ChatGPT'],
+    packages: [
+      { name: '无忧全能版', price: '¥19/月', traffic: '100GB /月', devices: '2台 (适合单人)' },
+      { name: '企业协助版', price: '¥45/月', traffic: '350GB /月', devices: '5台设备' },
+    ],
+    queryUrl: redirectsMap.wuyoulianjie.targetUrl,
+    detailUrl: '/brands/wuyoulianjie',
+  },
+  {
+    rank: 8,
+    name: '跨界云',
+    slug: 'kuajieyun',
+    badge: '金融交易专线',
+    rating: '8.8',
+    slogan: '极低延迟金融交易专线，防滑点微秒级响应',
+    startPrice: '¥20/月',
+    whyChoose: '全能型适合各类用户，高级 BGP 中转，精选核心地区解锁，付10个月送2个月。',
+    protocols: ['VLESS', 'Shadowsocks', '高级 BGP 中转'],
+    paymentMethods: ['支付宝', '微信支付', 'USDT'],
+    locations: ['美国', '英国', '德国', '日本', '新加坡', '中国香港'],
+    unlocks: ['精选核心地区解锁', 'Amazon/Shopify', 'TikTok', 'ChatGPT'],
+    packages: [
+      { name: '金融极速版', price: '¥20/月', traffic: '120GB /月', devices: '最多 8 台设备' },
+      { name: '跨界商务版', price: '¥50/月', traffic: '400GB /月', devices: '最多 8 台设备' },
+    ],
+    queryUrl: redirectsMap.kuajieyun.targetUrl,
+    detailUrl: '/brands/kuajieyun',
+  },
+];
+
+const rankingFaqs = [
+  { q: '排行榜上的价格与流量数据来源是什么？', a: '所有价格、月度流量配额与线路协议均由十大机场实验室团队进行多节点网络轮询测算与实时数据校验。' },
+  { q: '点击“前往官方主页查询”会发生什么？', a: '点击后将直接跳转至该品牌的官方网站，方便您查阅最新的节点规格与购买套餐。' },
+];
+---
+
+<BaseLayout
+  title="2026 最新机场排行榜 - 8 大品牌真实价格与流量榜单"
+  description="由十大机场实验室独家实测的 2026 最新机场排行榜，精准收录微风网络 (¥8/200G)、飞猫云 (¥7/150G)、暮光网络 (¥9/150G)、Firefly机场 (¥25/150G)、灵猫 (¥25/150G)、闪跃 (¥24/150G)、无忧链接 (¥19/100G) 与跨界云 (¥20/120G)。"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Page Header -->
+    <div class="space-y-4 border-b border-dark-border/80 pb-6">
+      <span class="text-xs font-bold text-brand-glow bg-brand-600/15 border border-brand-500/25 px-3 py-1 rounded-md uppercase tracking-wider">
+        2026 BENCHMARK RANKING
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        2026 年度优质机场排行榜
+      </h1>
+      <p class="text-sm text-gray-400 max-w-3xl leading-relaxed">
+        提供包含真实起步价格、线路协议、节点覆盖、解锁兼容、推荐理由与参考套餐的完整参数结构卡片（数据基于实验室真实网络检测）。
+      </p>
+
+      <!-- Quick Navigation Buttons (Stable & Cheap Airports) -->
+      <div class="pt-2 flex flex-wrap items-center gap-3">
+        <a
+          href="/stable"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 hover:border-emerald-500/60 hover:bg-emerald-500/20 text-emerald-300 hover:text-white text-xs sm:text-sm font-semibold transition-all shadow-sm"
+        >
+          <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <span>前往稳定机场专区</span>
+        </a>
+
+        <a
+          href="/cheap"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-500/60 hover:bg-amber-500/20 text-amber-300 hover:text-white text-xs sm:text-sm font-semibold transition-all shadow-sm"
+        >
+          <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>前往便宜机场专区</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Detailed Ranked Brands Cards -->
+    <section class="space-y-8">
+      <div class="border-l-4 border-brand-600 pl-4 py-1">
+        <h2 class="text-2xl font-extrabold text-white">
+          2026 8 大精选机场详细榜单与选购卡片
+        </h2>
+        <p class="text-xs text-gray-400 mt-1">
+          结构化展示真实价格、月流量、线路协议、节点覆盖、解锁服务与官方查询入口
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        {topRankedBrands.map((brand) => (
+          <RankingCard
+            rank={brand.rank}
+            name={brand.name}
+            slug={brand.slug}
+            badge={brand.badge}
+            rating={brand.rating}
+            slogan={brand.slogan}
+            startPrice={brand.startPrice}
+            protocols={brand.protocols}
+            locations={brand.locations}
+            unlocks={brand.unlocks}
+            paymentMethods={brand.paymentMethods}
+            whyChoose={brand.whyChoose}
+            packages={brand.packages}
+            queryUrl={brand.queryUrl}
+            detailUrl={brand.detailUrl}
+          />
+        ))}
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <FAQ items={rankingFaqs} title="排行榜常见疑问解答" />
+
+    <CTASection
+      title="需要按功能分类筛选？"
+      subtitle="访问我们的“稳定机场”或“便宜性价比机场”专属推荐栏目。"
+      buttonText="查看稳定机场推荐"
+      buttonHref="/stable"
+    />
+  </div>
+</BaseLayout>

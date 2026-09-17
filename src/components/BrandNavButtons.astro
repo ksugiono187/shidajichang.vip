@@ -1,0 +1,50 @@
+---
+interface BrandInfo {
+  name: string;
+  slug: string;
+}
+
+interface Props {
+  prevBrand?: BrandInfo | null;
+  nextBrand?: BrandInfo | null;
+  position?: 'top' | 'bottom';
+}
+
+const { prevBrand, nextBrand, position = 'bottom' } = Astro.props;
+---
+
+<div class={`flex flex-wrap items-center justify-between gap-3 ${position === 'top' ? 'mb-4 py-3 border-b border-dark-border/80' : 'my-8 pt-6 border-t border-dark-border/80'}`}>
+  {prevBrand ? (
+    <a
+      href={`/brands/${prevBrand.slug}`}
+      class="group flex items-center gap-2.5 max-w-[48%] px-4 py-2.5 rounded-xl bg-dark-card border border-dark-border hover:border-indigo-500/50 hover:bg-dark-hover transition-all text-xs text-gray-300 hover:text-white"
+    >
+      <svg class="w-4 h-4 text-indigo-400 shrink-0 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      <div class="truncate text-left">
+        <span class="block text-[10px] text-gray-500 font-semibold uppercase tracking-wider">← 上一个机场</span>
+        <span class="font-medium truncate block text-gray-200 group-hover:text-white">{prevBrand.name}</span>
+      </div>
+    </a>
+  ) : (
+    <div class="text-[11px] text-gray-600 px-4 py-2 bg-dark-card/40 rounded-xl border border-dark-border/40">已是第一个机场</div>
+  )}
+
+  {nextBrand ? (
+    <a
+      href={`/brands/${nextBrand.slug}`}
+      class="group flex items-center gap-2.5 max-w-[48%] ml-auto px-4 py-2.5 rounded-xl bg-dark-card border border-dark-border hover:border-indigo-500/50 hover:bg-dark-hover transition-all text-xs text-gray-300 hover:text-white text-right"
+    >
+      <div class="truncate text-right">
+        <span class="block text-[10px] text-gray-500 font-semibold uppercase tracking-wider">下一个机场 →</span>
+        <span class="font-medium truncate block text-gray-200 group-hover:text-white">{nextBrand.name}</span>
+      </div>
+      <svg class="w-4 h-4 text-indigo-400 shrink-0 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </a>
+  ) : (
+    <div class="text-[11px] text-gray-600 px-4 py-2 bg-dark-card/40 rounded-xl border border-dark-border/40 ml-auto">已是最后一个机场</div>
+  )}
+</div>

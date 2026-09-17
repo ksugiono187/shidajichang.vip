@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ComparisonTable from '../../components/ComparisonTable.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import FAQ from '../../components/FAQ.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const breadcrumbItems = [{ title: '服务方案多维对比' }];
+
+const detailedRows = [
+  { name: '晚高峰表现', values: ['延迟略升 (120ms)', '极低延迟 (45ms)', '零感知波动 (35ms)'] },
+  { name: '线路架构', values: ['公网直连 / 中转', 'BGP 多线中转', 'IPLC / IEPL 国际专线'] },
+  { name: '解封与流媒体', values: ['常规支持', '解锁 4K 流媒体', '原生 IP + 4K/8K 解锁'] },
+  { name: '防封锁隐蔽度', values: ['标准加密', '新一代伪装协议', '企业级定制协议通道'] },
+  { name: '适合人群', values: ['轻度网页查阅用户', '追剧/高画质视频用户', '极致稳定与外贸办公需求'] },
+];
+
+const compareFaqs = [
+  { q: '什么是 IPLC 专线？为什么价格高于普通直连？', a: 'IPLC (International Private Leased Circuit) 为点对点内网专线，信号不经过公网防火墙与公网拥堵点，因此具有极高稳定度和低延迟，但租用成本相对较高。' },
+  { q: '选择方案时应该优先考虑带宽还是延迟？', a: '对于网页浏览和在线游戏，延迟和丢包率最为关键；对于超高清视频下载，高带宽更为重要。' },
+];
+---
+
+<BaseLayout
+  title="服务方案多维对比 - 选型指南"
+  description="多维对比不同网络服务技术架构（公网直连、BGP中转、IPLC专线）在稳定性、延迟、解封能力及性价比方面的综合差异。"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Page Header -->
+    <div class="space-y-3 border-b border-dark-border/80 pb-6">
+      <span class="text-xs font-bold text-brand-glow bg-brand-600/15 border border-brand-500/25 px-3 py-1 rounded-md uppercase tracking-wider">
+        SOLUTION BENCHMARK
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        网络服务方案多维对比
+      </h1>
+      <p class="text-sm text-gray-400 max-w-3xl leading-relaxed">
+        帮助您理清不同技术方案的底层差异，拒绝盲目消费，根据自身真实需求挑选最契合的服务配置。
+      </p>
+    </div>
+
+    <!-- Main Comparison Table -->
+    <ComparisonTable
+      title="核心规格与技术维度对比表"
+      subtitle="数据源自自动化节点压测与真实高峰期丢包率统计"
+      headers={['评估维度', '基础直连方案', 'BGP 中转优化型', 'IPLC 顶级专线型']}
+      rows={detailedRows}
+    />
+
+    <!-- Dimension Explanations -->
+    <section class="space-y-6">
+      <SectionTitle
+        align="left"
+        badge="DIMENSION GUIDE"
+        title="如何评估选购核心维度？"
+      />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-dark-card border border-dark-border space-y-3">
+          <div class="w-8 h-8 rounded-lg bg-brand-600/20 text-brand-glow flex items-center justify-center font-bold text-sm">
+            01
+          </div>
+          <h3 class="text-base font-bold text-white">线路品质与拥堵率</h3>
+          <p class="text-xs text-gray-400 leading-relaxed">
+            普通公网线路在晚高峰遭遇拥堵时，丢包率往往激增；而专线路由走独立带宽通道，不受公网大局域网拥堵影响。
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-dark-card border border-dark-border space-y-3">
+          <div class="w-8 h-8 rounded-lg bg-brand-600/20 text-brand-glow flex items-center justify-center font-bold text-sm">
+            02
+          </div>
+          <h3 class="text-base font-bold text-white">协议演进与抗干扰</h3>
+          <p class="text-xs text-gray-400 leading-relaxed">
+            传统 SS 协议易被识别，新一代 Hysteria2 / VLESS-Reality 协议在弱网抗丢包与主动探测伪装方面拥有显著优势。
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-dark-card border border-dark-border space-y-3">
+          <div class="w-8 h-8 rounded-lg bg-brand-600/20 text-brand-glow flex items-center justify-center font-bold text-sm">
+            03
+          </div>
+          <h3 class="text-base font-bold text-white">解锁与原生 IP</h3>
+          <p class="text-xs text-gray-400 leading-relaxed">
+            部分流媒体与 AI 工具对 IP 质量审查严格，机房广播 IP 常遭遇限制，原生住宅 IP 能提供更好的服务兼容性。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <FAQ items={compareFaqs} title="对比选购常见疑问" />
+  </div>
+</BaseLayout>

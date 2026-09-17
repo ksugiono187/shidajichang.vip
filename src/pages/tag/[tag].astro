@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  const tagsSet = new Set<string>();
+
+  allPosts.forEach((post) => {
+    post.data.tags.forEach((tag) => tagsSet.add(tag));
+  });
+
+  return Array.from(tagsSet).map((tag) => {
+    const tagPosts = allPosts.filter((p) => p.data.tags.includes(tag));
+    return {
+      params: { tag },
+      props: { tag, posts: tagPosts },
+    };
+  });
+}
+
+const { tag, posts } = Astro.props;
+const breadcrumbItems = [
+  { title: '博客指南', href: '/blog' },
+  { title: `标签: #${tag}` },
+];
+---
+
+<BaseLayout title={`#${tag} - 标签文章汇总`} description={`包含“#${tag}”标签下的所有相关评测与技术指南文章。`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <div class="p-8 rounded-3xl bg-dark-card border border-dark-border space-y-2">
+      <span class="text-xs font-bold text-brand-glow bg-brand-600/20 px-2.5 py-0.5 rounded">
+        TAG ARCHIVE
+      </span>
+      <h1 class="text-3xl font-extrabold text-white">
+        标签：#{tag}
+      </h1>
+      <p class="text-xs text-gray-400">
+        包含该标签的所有相关文章共 {posts.length} 篇。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {posts.map((post) => (
+        <ArticleCard
+          title={post.data.title}
+          description={post.data.description}
+          slug={post.slug}
+          pubDate={post.data.pubDate}
+          category={post.data.category}
+          tags={post.data.tags}
+          author={post.data.author}
+        />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

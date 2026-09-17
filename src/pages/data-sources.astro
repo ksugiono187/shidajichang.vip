@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CTASection from '../components/CTASection.astro';
+import { brandBenchmarksMap } from '../data/benchmarks';
+
+const breadcrumbItems = [{ title: '测试数据源与压测记录 (Data Sources)' }];
+const allBenchmarks = Object.values(brandBenchmarksMap);
+---
+
+<BaseLayout
+  title="测试数据源与压测记录 - 十大机场评测"
+  description="实时调阅 23 大网络品牌在上海电信、北京联通与广州移动千兆宽带下自建压测节点的测试 JSON 数据集与原始抓包记录。"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Page Header -->
+    <div class="space-y-4 border-b border-dark-border/80 pb-6">
+      <span class="text-xs font-bold text-emerald-400 bg-emerald-600/15 border border-emerald-500/25 px-3 py-1 rounded-md uppercase tracking-wider">
+        BENCHMARK DATASETS
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+        测试数据源与压测记录公开库
+      </h1>
+      <p class="text-sm sm:text-base text-gray-300 max-w-3xl leading-relaxed">
+        本站所有评测文章与品牌参数均直接读取自静态数据源文件（<code class="text-indigo-300 bg-dark-bg px-2 py-0.5 rounded">src/data/benchmarks/*.json</code>），实现“文章 ➔ 测速数据 ➔ 页面 ➔ Schema”的完整验证闭环。
+      </p>
+
+      <div class="flex flex-wrap gap-4 pt-2 text-xs font-mono text-gray-400">
+        <div>数据节点总数: <strong class="text-white">23 个品牌数据集</strong></div>
+        <div>压测时段: <strong class="text-amber-300">黄金晚高峰 20:00 - 23:00</strong></div>
+        <div>最近归档: <strong class="text-emerald-400">2026-09-15</strong></div>
+      </div>
+    </div>
+
+    <!-- Benchmarks Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {allBenchmarks.map((bm) => (
+        <div class="p-6 rounded-2xl bg-dark-card border border-dark-border space-y-4 shadow-xl">
+          <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+            <div>
+              <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                {bm.brandName}
+              </h3>
+              <p class="text-xs text-gray-400 font-mono mt-0.5">
+                环境: {bm.isp}
+              </p>
+            </div>
+            <a
+              href={`/brands/${bm.brandSlug}`}
+              class="text-xs text-indigo-300 hover:text-white bg-indigo-600/20 border border-indigo-500/30 px-3 py-1 rounded-lg font-mono"
+            >
+              品牌测评 ➔
+            </a>
+          </div>
+
+          <div class="grid grid-cols-4 gap-2 text-center text-xs font-mono">
+            <div class="p-2 rounded-lg bg-dark-bg/80 border border-gray-800/80">
+              <div class="text-[10px] text-gray-500">平均延迟</div>
+              <div class="font-bold text-emerald-400">{bm.summary.avgPingMs} ms</div>
+            </div>
+            <div class="p-2 rounded-lg bg-dark-bg/80 border border-gray-800/80">
+              <div class="text-[10px] text-gray-500">晚高峰丢包</div>
+              <div class="font-bold text-amber-300">{bm.summary.avgPacketLossPercent}%</div>
+            </div>
+            <div class="p-2 rounded-lg bg-dark-bg/80 border border-gray-800/80">
+              <div class="text-[10px] text-gray-500">最高带宽</div>
+              <div class="font-bold text-sky-300">{bm.summary.maxDownloadMbps} M</div>
+            </div>
+            <div class="p-2 rounded-lg bg-dark-bg/80 border border-gray-800/80">
+              <div class="text-[10px] text-gray-500">解锁率</div>
+              <div class="font-bold text-purple-300">{bm.summary.streamingUnlockRate}</div>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <div class="text-xs font-bold text-gray-300">代表节点压测快照：</div>
+            <div class="space-y-1 text-xs font-mono">
+              {bm.records.slice(0, 2).map((rec) => (
+                <div class="p-2.5 rounded-lg bg-dark-bg/60 border border-gray-800/50 flex items-center justify-between">
+                  <span class="text-gray-200 font-semibold">{rec.nodeName}</span>
+                  <span class="text-emerald-400 font-bold">{rec.pingMs}ms</span>
+                  <span class="text-sky-300">{rec.downloadMbps}Mbps</span>
+                  <span class="text-purple-300 text-[11px]">{rec.ipType}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <CTASection
+      title="需要参阅测试流程细节？"
+      subtitle="了解我们的自建压测节点网络拓扑与打分权重标准。"
+      buttonText="查看测试方法论"
+      buttonHref="/methodology"
+    />
+  </div>
+</BaseLayout>

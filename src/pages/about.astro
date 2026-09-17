@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CTASection from '../components/CTASection.astro';
+import { siteConfig } from '../data/site';
+
+const breadcrumbItems = [{ title: '关于我们 (About Us)' }];
+---
+
+<BaseLayout
+  title="关于我们 - 平台定位、编辑团队与真实测评说明"
+  description="了解十大机场评测与指南平台的团队定位、定期人工压测流程、数据更新机制与免责声明。"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Header Banner -->
+    <div class="p-8 sm:p-10 rounded-3xl bg-card-gradient border border-brand-500/30 space-y-4 shadow-2xl relative overflow-hidden">
+      <div class="absolute -right-16 -top-16 w-64 h-64 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <span class="text-xs font-bold text-brand-glow bg-brand-600/20 border border-brand-500/30 px-3 py-1 rounded-md uppercase tracking-wider">
+        ABOUT OUR PLATFORM
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+        关于 {siteConfig.name}
+      </h1>
+      <p class="text-base text-gray-300 max-w-2xl leading-relaxed">
+        一个由技术爱好者建立的独立博客平台，记录真实的节点测试体验与客户端配置指南。
+      </p>
+
+      <div class="flex flex-wrap gap-4 pt-3 border-t border-gray-800 text-xs text-gray-400 font-mono">
+        <div>编辑团队: <span class="text-white font-bold">{siteConfig.author}</span></div>
+        <div>域名: <span class="text-indigo-300">{siteConfig.domain}</span></div>
+        <div>更新机制: <span class="text-emerald-400">定期人工抽样复核</span></div>
+      </div>
+    </div>
+
+    <!-- EEAT Detailed Body -->
+    <div class="prose-custom bg-dark-card p-6 sm:p-10 rounded-2xl border border-dark-border text-gray-300 leading-relaxed space-y-8 shadow-xl">
+      <!-- Section 1 -->
+      <section class="space-y-3">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2 border-b border-gray-800 pb-2">
+          <span class="w-3 h-3 rounded-full bg-brand-500"></span>
+          一、本站定位 (What We Do)
+        </h2>
+        <p>
+          <strong>{siteConfig.name}</strong>（<code class="text-brand-glow bg-dark-bg px-2 py-0.5 rounded">{siteConfig.domain}</code>）是一个由网络技术爱好者运营的独立评测与内容分享博客。在面对市场上繁杂的服务商宣传时，我们希望提供一个结构清晰、记录真实、不夸大宣传的参考视角，帮助大家了解各种协议特性与客户端配置方法。
+        </p>
+      </section>
+
+      <!-- Section 2 -->
+      <section class="space-y-3">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2 border-b border-gray-800 pb-2">
+          <span class="w-3 h-3 rounded-full bg-indigo-500"></span>
+          二、编辑团队声明 (Who We Are)
+        </h2>
+        <p>
+          本站由 <strong>“{siteConfig.author}”</strong> 个人及技术小组成员共同维护。我们并非大型企业或商业机构，而是长期关注开源代理协议（如 VLESS-Reality、Hysteria2、Sing-box 等）的技术玩家。我们通过个人测试账号与真实宽带进行体验，撰写相关心得与教程。
+        </p>
+      </section>
+
+      <!-- Section 3 -->
+      <section class="space-y-3">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2 border-b border-gray-800 pb-2">
+          <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+          三、真实的测试方式 (How Benchmark Data Is Made)
+        </h2>
+        <p>我们不做虚假的“24小时全自动机房天眼监控”，实事求是：</p>
+        <ul class="list-disc pl-6 space-y-2 text-gray-300">
+          <li><strong>定期手动抽样测速</strong>：编辑团队会在晚高峰（20:00 - 23:00）使用上海电信、北京联通等真实家用千兆宽带环境，手动对常用节点进行测速与丢包记录。</li>
+          <li><strong>手存快照整理</strong>：测试得到的延迟、带宽与解锁状态会人工整理并保存为 JSON 快照文件（<code class="text-indigo-300">src/data/benchmarks/*.json</code>），供页面读取展示。</li>
+          <li><strong>实测体验总结</strong>：结合个人日常使用体验（如流媒体播放、AI 免验证状态），撰写客观评价。</li>
+        </ul>
+      </section>
+
+      <!-- Section 4 -->
+      <section class="space-y-3">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2 border-b border-gray-800 pb-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+          四、内容更新与维护 (Update Policy)
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div class="p-4 rounded-xl bg-dark-bg/80 border border-gray-800 space-y-1">
+            <div class="text-xs font-bold text-emerald-400">品牌规格与优惠码</div>
+            <div class="text-xs text-gray-400">编辑团队会定期核对优惠码与套餐价格，如发现失效会及时更新或标注。</div>
+          </div>
+          <div class="p-4 rounded-xl bg-dark-bg/80 border border-gray-800 space-y-1">
+            <div class="text-xs font-bold text-indigo-400">客户端与配置教程</div>
+            <div class="text-xs text-gray-400">随着 Clash Verge Rev、Sing-box 等客户端大版本升级，我们会手动校对并更新配置截图与教程步骤。</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5 -->
+      <section class="space-y-3">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2 border-b border-gray-800 pb-2">
+          <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+          五、勘误与反馈 (Error Correction)
+        </h2>
+        <p>
+          因网络环境随时在发生变化，如果我们文章中的测试数据与您的实际体验有偏差，或教程步骤因软件更新失效，非常欢迎向我们提出修正意见。我们会及时进行核对与更新。
+        </p>
+      </section>
+
+      <!-- Section 6 -->
+      <section class="space-y-3">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2 border-b border-gray-800 pb-2">
+          <span class="w-3 h-3 rounded-full bg-sky-500"></span>
+          六、联系方式 (Contact Us)
+        </h2>
+        <div class="p-4 rounded-xl bg-dark-bg border border-gray-800 space-y-3">
+          <div class="text-xs text-gray-300">如需提出勘误建议或技术交流，可通过以下方式联系：</div>
+          <div class="flex flex-wrap items-center gap-4 text-xs font-mono">
+            <div>📧 电子邮箱：<a href="mailto:ksugiono187@gmail.com" class="text-brand-glow hover:underline">ksugiono187@gmail.com</a></div>
+            <div class="flex items-center gap-2">
+              <span>✈️ Telegram:</span>
+              <a
+                href={siteConfig.social.telegram || 'https://t.me/Hy_0027'}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sky-400 hover:text-white underline font-bold"
+              >
+                @Hy_0027
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 7 -->
+      <section class="space-y-3">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2 border-b border-gray-800 pb-2">
+          <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+          七、免责声明 (Disclaimer)
+        </h2>
+        <blockquote class="p-4 rounded-xl bg-red-500/10 border-l-4 border-red-500 text-xs text-gray-300 space-y-2">
+          <p>
+            1. 本网站（{siteConfig.domain}）上的所有内容仅用于技术交流与个人学习测试记录。
+          </p>
+          <p>
+            2. 本站为独立个人博客，不提供、不销售任何代理服务或侵权软件，亦不经营任何交易业务。
+          </p>
+          <p>
+            3. 请读者严格遵守所在国家与地区的法律法规，合规合规使用网络。
+          </p>
+        </blockquote>
+      </section>
+    </div>
+
+    <!-- CTA -->
+    <CTASection
+      title="探索更多技术指南与评测"
+      subtitle="查看我们最新发布的网络协议测试体验与客户端配置教程。"
+      buttonText="前往博客中心"
+      buttonHref="/blog"
+    />
+  </div>
+</BaseLayout>

@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BrandCard from '../../components/BrandCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { getCollection } from 'astro:content';
+import { sortBrands } from '../../data/brands';
+
+const rawBrands = await getCollection('brands');
+const brands = sortBrands(rawBrands);
+const breadcrumbItems = [{ title: '品牌词落地页索引' }];
+
+const rankingSlugs = [
+  'breezenet',
+  'feimaoyun',
+  'muguangwangluo',
+  'firefly',
+  'lingmao',
+  'flashleap',
+  'wuyoulianjie',
+  'kuajieyun',
+];
+
+const stableSlugs = [
+  'breezenet',
+  'feimaoyun',
+  'weituyun',
+  'xingdaomeng',
+  'u1s1',
+  'lightspeed',
+  'quanqiuyun',
+  'guangnianti',
+  'jilianyun',
+  'muguangwangluo',
+];
+
+const cheapSlugs = [
+  'sogoyun',
+  'weituyun',
+  'feiv',
+  'lingmao',
+  'wavenet',
+  'yinxingren',
+  'kuaili',
+  'ermaoyun',
+  'tiziyun',
+  'sujie',
+];
+---
+
+<BaseLayout
+  title="服务提供商品牌库 - 落地页索引"
+  description="收录主流网络服务提供商与品牌词落地页，提供透明的规格参数、线路覆盖与用户口碑分析。"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <div class="space-y-3 border-b border-dark-border/80 pb-6">
+      <span class="text-xs font-bold text-indigo-400 bg-indigo-600/15 border border-indigo-500/25 px-3 py-1 rounded-md uppercase tracking-wider">
+        BRAND DIRECTORY
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        品牌词落地页库
+      </h1>
+      <p class="text-sm text-gray-400 max-w-2xl leading-relaxed">
+        提供结构化的品牌参数对比与评价索引。本页面仅供技术展示与 SEO 测评参考，不包含任何外部商业购买引导。
+      </p>
+
+      <!-- Category Filter Tabs (在红色框位置) -->
+      <div class="pt-4 flex items-center gap-3 overflow-x-auto">
+        <button
+          type="button"
+          class="filter-tab-btn px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border bg-indigo-600 text-white border-indigo-500 shadow-glow-sm"
+          data-category="all"
+        >
+          全部
+        </button>
+        <button
+          type="button"
+          class="filter-tab-btn px-5 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer border bg-dark-card text-gray-400 hover:text-white border-dark-border hover:border-indigo-500/50"
+          data-category="ranking"
+        >
+          排行机场
+        </button>
+        <button
+          type="button"
+          class="filter-tab-btn px-5 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer border bg-dark-card text-gray-400 hover:text-white border-dark-border hover:border-indigo-500/50"
+          data-category="stable"
+        >
+          稳定机场
+        </button>
+        <button
+          type="button"
+          class="filter-tab-btn px-5 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer border bg-dark-card text-gray-400 hover:text-white border-dark-border hover:border-indigo-500/50"
+          data-category="cheap"
+        >
+          便宜机场
+        </button>
+      </div>
+    </div>
+
+    <!-- Brands Grid Container -->
+    <div id="brands-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {brands.map((brand, idx) => {
+        const inRanking = rankingSlugs.includes(brand.slug);
+        const rankingOrder = rankingSlugs.indexOf(brand.slug);
+        const inStable = stableSlugs.includes(brand.slug);
+        const stableOrder = stableSlugs.indexOf(brand.slug);
+        const inCheap = cheapSlugs.includes(brand.slug);
+        const cheapOrder = cheapSlugs.indexOf(brand.slug);
+
+        return (
+          <div
+            class="brand-card-item flex flex-col"
+            data-slug={brand.slug}
+            data-in-ranking={inRanking ? 'true' : 'false'}
+            data-order-ranking={rankingOrder !== -1 ? rankingOrder : 99}
+            data-in-stable={inStable ? 'true' : 'false'}
+            data-order-stable={stableOrder !== -1 ? stableOrder : 99}
+            data-in-cheap={inCheap ? 'true' : 'false'}
+            data-order-cheap={cheapOrder !== -1 ? cheapOrder : 99}
+            data-order-all={idx}
+            style={`order: ${idx}`}
+          >
+            <BrandCard
+              name={brand.data.name}
+              description={brand.data.description}
+              slug={brand.slug}
+              category={brand.data.category}
+              tags={brand.data.tags}
+              updatedDate={brand.data.updatedDate}
+            />
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabBtns = document.querySelectorAll('.filter-tab-btn');
+      const cardItems = document.querySelectorAll('.brand-card-item');
+
+      tabBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const category = btn.getAttribute('data-category');
+
+          // Reset all buttons style
+          tabBtns.forEach((b) => {
+            b.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-500', 'shadow-glow-sm', 'font-bold');
+            b.classList.add('bg-dark-card', 'text-gray-400', 'border-dark-border', 'font-medium');
+          });
+
+          // Highlight selected button
+          btn.classList.remove('bg-dark-card', 'text-gray-400', 'border-dark-border', 'font-medium');
+          btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-500', 'shadow-glow-sm', 'font-bold');
+
+          // Filter and re-order cards
+          cardItems.forEach((card) => {
+            if (category === 'all') {
+              card.style.display = 'flex';
+              const order = card.getAttribute('data-order-all') || '0';
+              card.style.order = order;
+            } else {
+              const isMatch = card.getAttribute(`data-in-${category}`) === 'true';
+              if (isMatch) {
+                card.style.display = 'flex';
+                const order = card.getAttribute(`data-order-${category}`) || '99';
+                card.style.order = order;
+              } else {
+                card.style.display = 'none';
+              }
+            }
+          });
+        });
+      });
+    });
+  </script>
+</BaseLayout>

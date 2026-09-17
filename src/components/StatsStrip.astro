@@ -1,0 +1,21 @@
+---
+import { homepageData } from '../data/homepage';
+
+const { stats } = homepageData;
+---
+
+<section class="py-8 bg-dark-bg/60 border-b border-dark-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+      {stats.map((item) => (
+        <div class="p-4 rounded-xl bg-dark-card border border-dark-border/80 flex flex-col items-center text-center">
+          <div class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-glow to-indigo-300">
+            {item.value}
+          </div>
+          <div class="text-xs font-medium text-gray-200 mt-1">{item.label}</div>
+          <div class="text-[10px] text-gray-500 mt-0.5">{item.unit}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

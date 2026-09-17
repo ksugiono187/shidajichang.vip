@@ -1,0 +1,171 @@
+export interface RedirectItem {
+  id: string;
+  name: string;
+  targetUrl: string;
+  description: string;
+  notice?: string;
+}
+
+export const redirectsMap: Record<string, RedirectItem> = {
+  breezenet: {
+    id: 'breezenet',
+    name: '微风网络 Breezenet 官方主页',
+    targetUrl: 'https://edp01.breezenetaff.com/#/?code=4KDOroY0',
+    description: '正在前往微风网络 Breezenet 官方主页查询最新的节点覆盖与套餐规格。',
+    notice: '您即将跳转至微风网络 Breezenet 官方网站。',
+  },
+  feimaoyun: {
+    id: 'feimaoyun',
+    name: '飞猫云 官方主页',
+    targetUrl: 'https://flycat1.flycatvipaff.cc/#/?code=Os3T3OxW',
+    description: '正在前往飞猫云官方主页查询最新的 BGP 中转节点与带宽参数。',
+    notice: '您即将跳转至飞猫云官方网站。',
+  },
+  muguangwangluo: {
+    id: 'muguangwangluo',
+    name: '暮光网络 官方主页',
+    targetUrl: 'https://varnexa.twilightaff.com/#/?code=3qqonTlH',
+    description: '正在前往暮光网络官方主页查询 IPLC 专线路由与服务质量。',
+    notice: '您即将跳转至暮光网络官方网站。',
+  },
+  firefly: {
+    id: 'firefly',
+    name: 'Firefly机场 官方主页',
+    targetUrl: 'https://vip02.fireflyaff.com/#/?code=Fes6j9rn',
+    description: '正在前往 Firefly 机场官方主页查询流媒体解锁与订阅参数。',
+    notice: '您即将跳转至 Firefly 机场官方网站。',
+  },
+  lingmao: {
+    id: 'lingmao',
+    name: '灵猫 官方主页',
+    targetUrl: 'https://vip02.civetaff.com/#/?code=kZlRw46w',
+    description: '正在前往灵猫官方主页查询入门套餐与客户端配置指南。',
+    notice: '您即将跳转至灵猫官方网站。',
+  },
+  flashleap: {
+    id: 'flashleap',
+    name: '闪跃 FlashLeap 官方主页',
+    targetUrl: 'https://vip02.flashleapaff.com/#/?code=FkCGEeaC',
+    description: '正在前往闪跃 FlashLeap 官方主页查询极速响应节点与协议更新。',
+    notice: '您即将跳转至闪跃 FlashLeap 官方网站。',
+  },
+  wuyoulianjie: {
+    id: 'wuyoulianjie',
+    name: '无忧链接 官方主页',
+    targetUrl: 'https://wep01.worryfreeaff.com/#/?code=56A0RTpU',
+    description: '正在前往无忧链接官方主页查询双主干高可用路由参数。',
+    notice: '您即将跳转至无忧链接官方网站。',
+  },
+  kuajieyun: {
+    id: 'kuajieyun',
+    name: '跨界云 官方主页',
+    targetUrl: 'https://vip02.kuajieaff.com/#/?code=VfWeYwHM',
+    description: '正在前往跨界云官方主页查询跨境办公与电商纯净 IP 节点。',
+    notice: '您即将跳转至跨界云官方网站。',
+  },
+  weituyun: {
+    id: 'weituyun',
+    name: '唯兔云 官方主页',
+    targetUrl: 'https://fast.v2yunvipaff.com/#/?code=xYEe8gyb',
+    description: '正在前往唯兔云官方主页查询平价套餐与连通率。',
+    notice: '您即将跳转至唯兔云官方网站。',
+  },
+  xingdaomeng: {
+    id: 'xingdaomeng',
+    name: '星岛梦 官方主页',
+    targetUrl: 'https://kfccbb.xingdaomeng.com/#/?code=JTRIWFim',
+    description: '正在前往星岛梦官方主页查询亚太优化节点与流媒体解锁。',
+    notice: '您即将跳转至星岛梦官方网站。',
+  },
+  u1s1: {
+    id: 'u1s1',
+    name: 'U1S1 官方主页',
+    targetUrl: 'https://pkdj7.vipaff.cc/#/?code=NMjmHbvu',
+    description: '正在前往 U1S1 官方主页查询透明监控数据与服务套餐。',
+    notice: '您即将跳转至 U1S1 官方网站。',
+  },
+  lightspeed: {
+    id: 'lightspeed',
+    name: '光速云 LightSpeed 官方主页',
+    targetUrl: 'https://mdlky.gsyaff.com/#/?code=6tRWbtgK',
+    description: '正在前往光速云 LightSpeed 官方主页查询千兆独享专线。',
+    notice: '您即将跳转至光速云 LightSpeed 官方网站。',
+  },
+  quanqiuyun: {
+    id: 'quanqiuyun',
+    name: '全球云 官方主页',
+    targetUrl: 'https://sswdh.gcvipaff.com/#/?code=NE1AcNIX',
+    description: '正在前往全球云官方主页查询 50+ 多国节点覆盖。',
+    notice: '您即将跳转至全球云官方网站。',
+  },
+  guangnianti: {
+    id: 'guangnianti',
+    name: '光年梯 官方主页',
+    targetUrl: 'https://ggmq.gntaff.com/#/?code=RAJFvngV',
+    description: '正在前往光年梯官方主页查询全平台一键订阅参数。',
+    notice: '您即将跳转至光年梯官方网站。',
+  },
+  jilianyun: {
+    id: 'jilianyun',
+    name: '极连云 官方主页',
+    targetUrl: 'https://kdjhao.jlyvipaff.com/#/?code=poyoU7mq',
+    description: '正在前往极连云官方主页查询游戏专线加速与自愈路由。',
+    notice: '您即将跳转至极连云官方网站。',
+  },
+  sogoyun: {
+    id: 'sogoyun',
+    name: 'Sogo云 官方主页',
+    targetUrl: 'https://wzjc.sogoyunaff.cc/#/?code=2x2EywO9',
+    description: '正在前往 Sogo 云官方主页查询大流量套餐与多端支持。',
+    notice: '您即将跳转至 Sogo 云官方网站。',
+  },
+  feiv: {
+    id: 'feiv',
+    name: '飞V 官方主页',
+    targetUrl: 'https://varnexa.flyvaff.com/#/?code=UoU2Izm5',
+    description: '正在前往飞 V 官方主页查询极速流线接入与出口带宽。',
+    notice: '您即将跳转至飞 V 官方网站。',
+  },
+  wavenet: {
+    id: 'wavenet',
+    name: '浪网 WaveNet 官方主页',
+    targetUrl: 'https://varnexa.wavenetaff.com/#/?code=oU77JXen',
+    description: '正在前往浪网 WaveNet 官方主页查询 BGP 线路与抗波动调度。',
+    notice: '您即将跳转至浪网 WaveNet 官方网站。',
+  },
+  yinxingren: {
+    id: 'yinxingren',
+    name: '隐形人 官方主页',
+    targetUrl: 'https://varnexa.invisibleaff.com/#/?code=JF4seZUy',
+    description: '正在前往隐形人官方主页查询隐私保护与证书伪装参数。',
+    notice: '您即将跳转至隐形人官方网站。',
+  },
+  kuaili: {
+    id: 'kuaili',
+    name: '快狸 KuaiLi 官方主页',
+    targetUrl: 'https://work.kuailicloud.cc/#/?code=gVGJa0Mp',
+    description: '正在前往快狸 KuaiLi 官方主页查询敏捷中转与订阅设置。',
+    notice: '您即将跳转至快狸 KuaiLi 官方网站。',
+  },
+  ermaoyun: {
+    id: 'ermaoyun',
+    name: '二猫云 官方主页',
+    targetUrl: 'https://waaa.2maoyunaff.cc/#/?code=uHeyKG44',
+    description: '正在前往二猫云官方主页查询稳定平价大流量套餐。',
+    notice: '您即将跳转至二猫云官方网站。',
+  },
+  tiziyun: {
+    id: 'tiziyun',
+    name: '梯子云 官方主页',
+    targetUrl: 'https://varnexa.ladderaff.com/#/?code=kuE4kqxo',
+    description: '正在前往梯子云官方主页查询自动化负载均衡与节点覆盖。',
+    notice: '您即将跳转至梯子云官方网站。',
+  },
+  sujie: {
+    id: 'sujie',
+    name: '速界 SuJie 官方主页',
+    targetUrl: 'https://work.speedworldaff.cc/#/?code=wSjLCpIf',
+    description: '正在前往速界 SuJie 官方主页查询极速 IPLC 专线路由。',
+    notice: '您即将跳转至速界 SuJie 官方网站。',
+  },
+};

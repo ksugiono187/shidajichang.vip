@@ -1,0 +1,79 @@
+---
+import { redirectsMap } from '../data/redirects';
+import { couponData } from '../data/coupons';
+
+interface Props {
+  name: string;
+  description: string;
+  slug: string;
+  category?: string;
+  tags?: string[];
+  updatedDate?: Date | string;
+}
+
+const { name, description, slug, category = '网络服务', tags = [] } = Astro.props;
+
+const officialUrl = redirectsMap[slug]?.targetUrl || `/go/${slug}`;
+const coupon = couponData[slug];
+---
+
+<div class="group relative p-6 rounded-2xl bg-dark-card border border-dark-border hover:border-indigo-500/40 hover:bg-dark-hover transition-all duration-300 flex flex-col justify-between space-y-4">
+  <div class="space-y-3">
+    <!-- Header Category & Coupon Badge -->
+    <div class="flex items-center justify-between gap-2 flex-wrap">
+      <span class="text-[11px] font-bold text-indigo-300 bg-indigo-600/20 border border-indigo-500/30 px-2.5 py-0.5 rounded-md">
+        {category}
+      </span>
+      {coupon && (
+        <span class="text-[10px] font-bold text-amber-300 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-full">
+          🎟️ {coupon.label}
+        </span>
+      )}
+    </div>
+
+    <!-- Brand Name Title -->
+    <h3 class="text-lg font-extrabold text-white group-hover:text-indigo-300 transition-colors">
+      <a href={`/brands/${slug}`} class="hover:underline">
+        {name}
+      </a>
+    </h3>
+
+    <!-- Description -->
+    <p class="text-xs text-gray-400 line-clamp-3 leading-relaxed">
+      {description}
+    </p>
+
+    <!-- Tags -->
+    {tags && tags.length > 0 && (
+      <div class="flex flex-wrap gap-1.5 pt-1">
+        {tags.slice(0, 3).map((t) => (
+          <span class="text-[10px] text-gray-400 bg-gray-800/80 px-2 py-0.5 rounded border border-gray-700/80">
+            #{t}
+          </span>
+        ))}
+      </div>
+    )}
+  </div>
+
+  <!-- Bottom Action Buttons Row -->
+  <div class="pt-4 border-t border-dark-border/60 flex items-center justify-between gap-2 flex-wrap">
+    <a
+      href={officialUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="px-4 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 shadow-glow-sm hover:shadow-glow-md transition-all flex items-center gap-1.5"
+    >
+      前往官方网站
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+      </svg>
+    </a>
+
+    <a
+      href={`/brands/${slug}`}
+      class="px-3.5 py-2 rounded-xl text-xs font-semibold text-gray-300 bg-gray-800/80 hover:bg-gray-700 hover:text-white transition-colors"
+    >
+      详细评测 →
+    </a>
+  </div>
+</div>

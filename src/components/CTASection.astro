@@ -1,0 +1,34 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  buttonText?: string;
+  buttonHref?: string;
+}
+
+const {
+  title = '准备好探索更多高性能网络评测了吗？',
+  subtitle = '查阅我们的完整专题知识库与横向对比表，理清优缺点，拒绝盲目选择。',
+  buttonText = '探索完整博客目录',
+  buttonHref = '/blog',
+} = Astro.props;
+---
+
+<section class="my-16 rounded-3xl bg-gradient-to-r from-brand-900/60 via-dark-card to-indigo-950/60 border border-brand-500/30 p-8 lg:p-12 text-center relative overflow-hidden shadow-2xl">
+  <div class="relative z-10 max-w-2xl mx-auto space-y-4">
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+      {title}
+    </h2>
+    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+      {subtitle}
+    </p>
+    <div class="pt-2">
+      <a
+        href={buttonHref}
+        class="inline-block px-8 py-3.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 shadow-glow-md hover:shadow-glow-lg transition-all"
+      >
+        {buttonText} →
+      </a>
+    </div>
+  </div>
+</section>

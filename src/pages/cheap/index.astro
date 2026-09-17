@@ -1,0 +1,340 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ from '../../components/FAQ.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTASection from '../../components/CTASection.astro';
+import RankingCard from '../../components/RankingCard.astro';
+import { redirectsMap } from '../../data/redirects';
+
+const breadcrumbItems = [{ title: '便宜性价比机场推荐专区' }];
+
+const cheapBrands = [
+  {
+    rank: 1,
+    name: 'Sogo云',
+    slug: 'sogoyun',
+    badge: '外贸独立站专线',
+    rating: '8.6',
+    slogan: '外贸 ERP 与独立站专线，固定归属地出口 IP',
+    startPrice: '¥25/月',
+    whyChoose: '重度流媒体玩家与外贸独立站首选，精品直连 + 中转，Netflix/Disney+ 专属优化，年付打 7 折。',
+    protocols: ['VLESS', '精品直连', '中转优化'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['中国香港', '日本', '韩国', '美国', '德国'],
+    unlocks: ['Netflix/Disney+ 专属', 'YouTube 4K', 'ChatGPT'],
+    packages: [
+      { name: '精品直连套餐', price: '¥25/月', traffic: '150GB /月', devices: '2台 (适合单人)' },
+      { name: '外贸独立站大流量版', price: '¥55/月', traffic: '450GB /月', devices: '5台设备' },
+    ],
+    queryUrl: redirectsMap.sogoyun.targetUrl,
+    detailUrl: '/brands/sogoyun',
+  },
+  {
+    rank: 2,
+    name: '唯兔云',
+    slug: 'weituyun',
+    badge: '老牌维稳高冗余',
+    rating: '8.5',
+    slogan: 'Vmess/VLESS 协议老牌维稳，高冗余备用服务器集群',
+    startPrice: '¥19.9/月',
+    whyChoose: '全能型适合各类用户，高冗余备用服务器集群，支持主流流媒体解锁，年付立减 20%。',
+    protocols: ['VLESS', 'Vmess', 'BGP 多线负载/直连'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['中国香港', '日本', '韩国', '美西'],
+    unlocks: ['支持主流流媒体解锁', 'YouTube', 'ChatGPT', 'Wikipedia'],
+    packages: [
+      { name: '高冗余维稳版', price: '¥19.9/月', traffic: '150GB /月', devices: '基本不限制' },
+      { name: '畅享大容量版', price: '¥38/月', traffic: '400GB /月', devices: '基本不限制' },
+    ],
+    queryUrl: redirectsMap.weituyun.targetUrl,
+    detailUrl: '/brands/weituyun',
+  },
+  {
+    rank: 3,
+    name: '飞V',
+    slug: 'feiv',
+    badge: '纯净学术通道',
+    rating: '9.2',
+    slogan: '纯净学术资源极速通道，Github/Docker 开发者加速',
+    startPrice: '¥25/月',
+    whyChoose: '外贸与跨境电商首选，高级 BGP 中转与 IEPL 专线，支持主流流媒体解锁，年付立减 20%。',
+    protocols: ['VLESS', 'IEPL专线', '高级 BGP 中转'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['中国香港', '日本东京', '新加坡', '美西'],
+    unlocks: ['Github/Docker 加速', 'TikTok', 'YouTube', 'ChatGPT'],
+    packages: [
+      { name: '学术开发者版', price: '¥25/月', traffic: '150GB /月', devices: '2台 (适合单人)' },
+      { name: '进阶全能版', price: '¥50/月', traffic: '400GB /月', devices: '5台设备' },
+    ],
+    queryUrl: redirectsMap.feiv.targetUrl,
+    detailUrl: '/brands/feiv',
+  },
+  {
+    rank: 4,
+    name: '灵猫',
+    slug: 'lingmao',
+    badge: 'AI防风控专属',
+    rating: '9.0',
+    slogan: 'AI 工具防风控专属池，无感验证码绕过',
+    startPrice: '¥25/月',
+    whyChoose: '重度流媒体玩家与 AI 开发者首选，隧道中转 + 专线，全媒体原生完美解锁，秒级工单回复。',
+    protocols: ['VLESS', '隧道中转 + 专线'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['中国香港', '日本东京', '新加坡', '美西'],
+    unlocks: ['全媒体原生解锁', 'ChatGPT 防风控池', 'YouTube 4K'],
+    packages: [
+      { name: 'AI 专属防风控版', price: '¥25/月', traffic: '150GB /月', devices: '5台设备同时在线' },
+      { name: '海量全能版', price: '¥58/月', traffic: '450GB /月', devices: '5台设备同时在线' },
+    ],
+    queryUrl: redirectsMap.lingmao.targetUrl,
+    detailUrl: '/brands/lingmao',
+  },
+  {
+    rank: 5,
+    name: '浪网 WaveNet',
+    slug: 'wavenet',
+    badge: '价格屠夫',
+    rating: '9.5',
+    slogan: '价格屠夫级别的性价比，透明的轻度限速机制',
+    startPrice: '¥30/月',
+    whyChoose: '企业级高标准用户首选，BGP 多线负载均衡，高成功率冷门解锁，年付直接打 7 折。',
+    protocols: ['VLESS', 'IEPL专线', 'BGP 多线负载均衡'],
+    paymentMethods: ['支付宝', '微信支付', 'USDT'],
+    locations: ['中国香港', '日本东京', '美国西海岸'],
+    unlocks: ['高成功率冷门解锁', 'Netflix', 'YouTube', 'ChatGPT'],
+    packages: [
+      { name: 'BGP 负载体验版', price: '¥30/月', traffic: '150GB /月', devices: '基本不限制' },
+      { name: '全频大带宽版', price: '¥65/月', traffic: '500GB /月', devices: '基本不限制' },
+    ],
+    queryUrl: redirectsMap.wavenet.targetUrl,
+    detailUrl: '/brands/wavenet',
+  },
+  {
+    rank: 6,
+    name: '隐形人',
+    slug: 'yinxingren',
+    badge: '全匿名加密',
+    rating: '9.0',
+    slogan: '全匿名虚拟货币支付系统，免实名零痕迹注册',
+    startPrice: '¥24/月',
+    whyChoose: '企业级高标准用户首选，CN2 GIA/高级 BGP 中转，精选核心地区解锁，年付立减 20%。',
+    protocols: ['VLESS', 'CN2 GIA', '高级 BGP 中转'],
+    paymentMethods: ['USDT / 虚拟货币', '支付宝', '微信支付'],
+    locations: ['中国香港', '新加坡', '美西', '德国'],
+    unlocks: ['精选核心地区解锁', 'Google Workspace', 'ChatGPT', 'Netflix'],
+    packages: [
+      { name: '匿名加密标准版', price: '¥24/月', traffic: '144GB /月', devices: '最多 8 台设备' },
+      { name: '极致隐私尊享版', price: '¥52/月', traffic: '400GB /月', devices: '最多 8 台设备' },
+    ],
+    queryUrl: redirectsMap.yinxingren.targetUrl,
+    detailUrl: '/brands/yinxingren',
+  },
+  {
+    rank: 7,
+    name: '快狸 KuaiLi',
+    slug: 'kuaili',
+    badge: '移动端低功耗',
+    rating: '9.3',
+    slogan: '移动端极致保活优化，极低功耗协议',
+    startPrice: '¥15/月',
+    whyChoose: '大流量需求与学生党首选，IEPL 专线/精品直连中转，全媒体原生完美解锁，TG 专属售后群。',
+    protocols: ['VLESS', 'IEPL 专线', '精品直连中转'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['中国香港', '日本', '韩国', '美国'],
+    unlocks: ['全媒体原生完美解锁', 'TikTok', 'YouTube', 'Social Apps'],
+    packages: [
+      { name: '移动端低功耗版', price: '¥15/月', traffic: '50GB /月', devices: '3台设备 (可升级)' },
+      { name: '高能大流量版', price: '¥35/月', traffic: '300GB /月', devices: '5台设备' },
+    ],
+    queryUrl: redirectsMap.kuaili.targetUrl,
+    detailUrl: '/brands/kuaili',
+  },
+  {
+    rank: 8,
+    name: '二猫云',
+    slug: 'ermaoyun',
+    badge: '二次元高防',
+    rating: '8.4',
+    slogan: '二次元专属高防线路，日区冷门流媒体原生解锁',
+    startPrice: '¥20/月',
+    whyChoose: '企业级高标准用户首选，全线 IEPL 专线，全媒体原生完美解锁，秒级工单回复。',
+    protocols: ['VLESS', '全线 IEPL 专线', 'BGP中转'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['中国香港', '日本', '新加坡', '美西'],
+    unlocks: ['日区冷门流媒体', '全媒体原生完美解锁', 'YouTube 4K', 'ChatGPT'],
+    packages: [
+      { name: 'IEPL 专线版', price: '¥20/月', traffic: '130GB /月', devices: '基本不限制' },
+      { name: '尊享巨量版', price: '¥48/月', traffic: '450GB /月', devices: '基本不限制' },
+    ],
+    queryUrl: redirectsMap.ermaoyun.targetUrl,
+    detailUrl: '/brands/ermaoyun',
+  },
+  {
+    rank: 9,
+    name: '梯子云',
+    slug: 'tiziyun',
+    badge: '灵活短租',
+    rating: '8.3',
+    slogan: '灵活按周/按日短租，全自助密码重置与恢复',
+    startPrice: '¥25/月',
+    whyChoose: '轻度用户与查阅资料首选，高级 BGP 中转/直连，高成功率冷门解锁，24h 在线客服。',
+    protocols: ['VLESS', '高级 BGP 中转', '直连'],
+    paymentMethods: ['支付宝', '微信支付'],
+    locations: ['香港', '日本', '韩国', '新加坡', '美国', '英国'],
+    unlocks: ['高成功率冷门解锁', 'YouTube', 'Netflix', 'ChatGPT'],
+    packages: [
+      { name: '灵活短租 BGP 版', price: '¥25/月', traffic: '125GB /月', devices: '不限制设备数' },
+      { name: '高配全能版', price: '¥55/月', traffic: '400GB /月', devices: '不限制设备数' },
+    ],
+    queryUrl: redirectsMap.tiziyun.targetUrl,
+    detailUrl: '/brands/tiziyun',
+  },
+  {
+    rank: 10,
+    name: '速界 SuJie',
+    slug: 'sujie',
+    badge: '静态原生IP',
+    rating: '8.7',
+    slogan: '短视频矩阵静态原生 IP，环境隔离防关联技术',
+    startPrice: '¥15/月',
+    whyChoose: '轻度用户与查阅资料首选，IPLC/IEPL 物理专线与 BGP 中转，TikTok/ChatGPT 无压解锁。',
+    protocols: ['VLESS', 'IPLC/IEPL 物理专线', 'BGP中转'],
+    paymentMethods: ['支付宝', '微信支付', 'USDT'],
+    locations: ['深港 IPLC', '沪日 IPLC', '京德专线'],
+    unlocks: ['TikTok/ChatGPT 无压解锁', '短视频矩阵', 'Steam游戏加速'],
+    packages: [
+      { name: '静态原生 IP 版', price: '¥15/月', traffic: '50GB /月', devices: '3台设备 (可升级)' },
+      { name: '尊享内网版', price: '¥42/月', traffic: '300GB /月', devices: '8台设备' },
+    ],
+    queryUrl: redirectsMap.sujie.targetUrl,
+    detailUrl: '/brands/sujie',
+  },
+];
+
+const cheapFaqs = [
+  { q: '便宜机场会不会容易“跑路”？', a: '价格便宜并不等于不靠谱，但建议避开过于夸张的“一元包年”劣质机场。选择运营历史半年以上、口碑良好的平价中转机场更为稳妥。' },
+  { q: '便宜机场与高端专线机场的主要区别是什么？', a: '主要体现在线路类型（便宜机场多为直连或普通中转）以及晚高峰拥堵控制上。对于日常网页浏览、查阅资料而言，便宜机场性价比极高。' },
+];
+---
+
+<BaseLayout
+  title="便宜机场推荐 - 10 大极致性价比与高流量套餐品牌榜单"
+  description="筛选全网高性价比、便宜好用、量大管饱的平价网络服务机场，涵盖Sogo云、唯兔云、飞V、灵猫、浪网、隐形人、快狸、二猫云、梯子云与速界。"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Page Header -->
+    <div class="space-y-4 border-b border-dark-border/80 pb-6">
+      <span class="text-xs font-bold text-amber-400 bg-amber-600/15 border border-amber-500/25 px-3 py-1 rounded-md uppercase tracking-wider">
+        HIGH COST-PERFORMANCE & VALUE
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        便宜性价比机场推荐
+      </h1>
+      <p class="text-sm text-gray-400 max-w-3xl leading-relaxed">
+        花最少的钱，享优质的网！专为预算有限、追求高性价比与大流量套餐的用户量身定制。
+      </p>
+
+      <!-- Quick Navigation Buttons -->
+      <div class="pt-2 flex flex-wrap items-center gap-3">
+        <a
+          href="/ranking"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 hover:border-indigo-500/60 hover:bg-indigo-500/20 text-indigo-300 hover:text-white text-xs sm:text-sm font-semibold transition-all shadow-sm"
+        >
+          <svg class="w-4 h-4 text-indigo-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+          <span>查看机场排行榜</span>
+        </a>
+
+        <a
+          href="/stable"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 hover:border-emerald-500/60 hover:bg-emerald-500/20 text-emerald-300 hover:text-white text-xs sm:text-sm font-semibold transition-all shadow-sm"
+        >
+          <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <span>前往稳定机场专区</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Highlights -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="p-6 rounded-2xl bg-dark-card border border-dark-border space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm">
+          低至月付
+        </div>
+        <h3 class="text-base font-bold text-white">超低入门门槛</h3>
+        <p class="text-xs text-gray-400 leading-relaxed">
+          提供灵活动态月付方案，试错成本低，随时根据体验自由更换。
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-dark-card border border-dark-border space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm">
+          TB+
+        </div>
+        <h3 class="text-base font-bold text-white">超大流量包</h3>
+        <p class="text-xs text-gray-400 leading-relaxed">
+          套餐包含丰厚流量额度，轻松满足日常多设备、多团队日常查阅需求。
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-dark-card border border-dark-border space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm">
+          多节点
+        </div>
+        <h3 class="text-base font-bold text-white">常用节点覆盖全</h3>
+        <p class="text-xs text-gray-400 leading-relaxed">
+          涵盖港、日、韩、美、新等主流地区节点，兼顾基本流媒体解锁。
+        </p>
+      </div>
+    </div>
+
+    <!-- 10 Cheap Brands Ranking Cards Grid -->
+    <section class="space-y-8">
+      <div class="border-l-4 border-amber-500 pl-4 py-1">
+        <h2 class="text-2xl font-extrabold text-white">
+          10 大平价高性价比机场推荐与规格卡片
+        </h2>
+        <p class="text-xs text-gray-400 mt-1">
+          结构化展示线路协议、支持支付、节点覆盖、解锁服务、参考套餐与官方查询入口
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        {cheapBrands.map((brand) => (
+          <RankingCard
+            rank={brand.rank}
+            name={brand.name}
+            slug={brand.slug}
+            badge={brand.badge}
+            rating={brand.rating}
+            slogan={brand.slogan}
+            startPrice={brand.startPrice}
+            protocols={brand.protocols}
+            locations={brand.locations}
+            unlocks={brand.unlocks}
+            paymentMethods={brand.paymentMethods}
+            whyChoose={brand.whyChoose}
+            packages={brand.packages}
+            queryUrl={brand.queryUrl}
+            detailUrl={brand.detailUrl}
+          />
+        ))}
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <FAQ items={cheapFaqs} title="便宜机场解答" />
+
+    <CTASection
+      title="想了解综合排行全貌？"
+      subtitle="访问 2026 最新机场排行榜，掌握更多主流服务商的客观评测数据。"
+      buttonText="查看完整排行榜"
+      buttonHref="/ranking"
+    />
+  </div>
+</BaseLayout>

@@ -1,0 +1,177 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import StatsStrip from '../components/StatsStrip.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import TopicCluster from '../components/TopicCluster.astro';
+import BrandCard from '../components/BrandCard.astro';
+import FAQ from '../components/FAQ.astro';
+import CTASection from '../components/CTASection.astro';
+import { homepageData } from '../data/homepage';
+import { getCollection } from 'astro:content';
+import { sortBrands } from '../data/brands';
+
+const allBlogPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const allBrands = sortBrands(await getCollection('brands'));
+const allTopics = await getCollection('topics');
+
+const topicsWithCount = allTopics.map((topic) => {
+  const count = allBlogPosts.filter((post) => {
+    if (post.data.topics && Array.isArray(post.data.topics) && post.data.topics.length > 0) {
+      return post.data.topics.includes(topic.slug);
+    }
+    if (topic.data.categoryFilter && post.data.category === topic.data.categoryFilter) return true;
+    if (topic.data.tagsFilter && topic.data.tagsFilter.length > 0) {
+      return post.data.tags.some((tag) => topic.data.tagsFilter?.includes(tag));
+    }
+    return false;
+  }).length;
+  return { topic, count };
+});
+
+const homepageFaqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  'mainEntity': homepageData.faqs.map((faq) => ({
+    '@type': 'Question',
+    'name': faq.q,
+    'acceptedAnswer': {
+      '@type': 'Answer',
+      'text': faq.a,
+    },
+  })),
+};
+---
+
+<BaseLayout title="首页 - 十大机场评测与网络指南平台" jsonLd={homepageFaqSchema}>
+  <!-- 2. Hero 首屏 -->
+  <Hero />
+
+  <!-- 3. 信任数据条 StatsStrip -->
+  <StatsStrip />
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+    <!-- 4. 核心栏目 Feature 区 -->
+    <section>
+      <SectionTitle
+        badge="CONTENT MODULES"
+        title="全方位内容结构库"
+        subtitle="从零基础入门教程到深入的协议纵深对比，为您构建全维度的网络技术知识体系。"
+      />
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {homepageData.features.map((item) => (
+          <FeatureCard
+            title={item.title}
+            desc={item.desc}
+            href={item.href}
+            tag={item.tag}
+          />
+        ))}
+      </div>
+    </section>
+
+    <!-- 5. 推荐文章区 -->
+    <section>
+      <SectionTitle
+        badge="LATEST GUIDES"
+        title="最新评测与实测文章"
+        subtitle="由 SEO 技术团队撰写的高质量内容，经过严谨的节点压测与数据校验。"
+      />
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {allBlogPosts.slice(0, 3).map((post) => (
+          <ArticleCard
+            title={post.data.title}
+            description={post.data.description}
+            slug={post.slug}
+            pubDate={post.data.pubDate}
+            category={post.data.category}
+            tags={post.data.tags}
+            author={post.data.author}
+          />
+        ))}
+      </div>
+    </section>
+
+    <!-- 6. 专题聚合区 TopicCluster -->
+    <section class="p-8 rounded-3xl bg-dark-card/50 border border-dark-border">
+      <SectionTitle
+        badge="TOPIC CLUSTERS"
+        title="专题知识库聚合"
+        subtitle="系统化整理的长尾主题，协助您循序渐进地掌握网络优化核心技术。"
+      />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {topicsWithCount.map(({ topic, count }) => (
+          <TopicCluster
+            title={topic.data.title}
+            description={topic.data.description}
+            slug={topic.slug}
+            count={count}
+          />
+        ))}
+      </div>
+    </section>
+
+    <!-- 7. 品牌词落地页入口 -->
+    <section>
+      <SectionTitle
+        badge="BRAND DIRECTORY"
+        title="服务提供商品牌库"
+        subtitle="收录主流服务品牌与规格参数对比，提供全面中立的实测参考。"
+      />
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {allBrands.map((brand) => (
+          <BrandCard
+            name={brand.data.name}
+            description={brand.data.description}
+            slug={brand.slug}
+            category={brand.data.category}
+            tags={brand.data.tags}
+            updatedDate={brand.data.updatedDate}
+          />
+        ))}
+      </div>
+    </section>
+
+    <!-- 8. SEO 内容模块 -->
+    <section class="p-8 rounded-2xl bg-dark-card border border-dark-border/80 space-y-6">
+      <div class="border-b border-dark-border/60 pb-4">
+        <span class="text-xs font-semibold text-brand-glow uppercase tracking-wider">ABOUT OUR PLATFORM</span>
+        <h2 class="text-2xl font-bold text-white mt-1">
+          {homepageData.seoContent.title}
+        </h2>
+      </div>
+
+      <div class="space-y-4 text-xs sm:text-sm text-gray-300 leading-relaxed">
+        {homepageData.seoContent.paragraphs.map((p) => (
+          <p>{p}</p>
+        ))}
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-dark-border/40">
+        {homepageData.seoContent.highlights.map((h) => (
+          <div class="space-y-2">
+            <h3 class="text-sm font-bold text-white text-brand-glow">{h.h2}</h3>
+            <p class="text-xs text-gray-400 leading-relaxed">{h.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 10. FAQ 区 -->
+    <section>
+      <SectionTitle
+        badge="FREQUENTLY ASKED"
+        title="常见高频解答 (FAQ)"
+        subtitle="针对技术名词、测试依据与使用疑惑的快速解答。"
+      />
+      <FAQ items={homepageData.faqs} />
+    </section>
+
+
+    <!-- 11. CTA 区 -->
+    <CTASection />
+  </div>
+</BaseLayout>

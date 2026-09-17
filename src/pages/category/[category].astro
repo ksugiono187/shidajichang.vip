@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryNav from '../../components/CategoryNav.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { categoriesMeta, getCategoryMeta } from '../../data/categories';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  const mainCategories = ['tutorial', 'review', 'comparison', 'faq'];
+
+  return mainCategories.map((catKey) => {
+    const info = categoriesMeta[catKey];
+    const categoryPosts = allPosts.filter(
+      (p) => p.data.category === catKey || p.data.category === info.name
+    );
+    return {
+      params: { category: catKey },
+      props: { category: catKey, posts: categoryPosts },
+    };
+  });
+}
+
+const { category, posts } = Astro.props;
+const categoryInfo = getCategoryMeta(category);
+
+const breadcrumbItems = [
+  { title: '博客指南', href: '/blog' },
+  { title: categoryInfo.name },
+];
+---
+
+<BaseLayout
+  title={`${categoryInfo.name} - 分类指南文章`}
+  description={categoryInfo.description}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Category Header -->
+    <div class="p-8 rounded-3xl bg-card-gradient border border-dark-border space-y-3">
+      <span class="text-xs font-bold text-brand-glow bg-brand-600/20 border border-brand-500/30 px-3 py-1 rounded-md uppercase tracking-wider">
+        CATEGORY ARCHIVE
+      </span>
+      <h1 class="text-3xl font-extrabold text-white">
+        {categoryInfo.name}
+      </h1>
+      <p class="text-xs sm:text-sm text-gray-300 max-w-2xl leading-relaxed">
+        {categoryInfo.description}
+      </p>
+    </div>
+
+    <CategoryNav currentSlug={category} />
+
+    {posts.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posts.map((post) => (
+          <ArticleCard
+            title={post.data.title}
+            description={post.data.description}
+            slug={post.slug}
+            pubDate={post.data.pubDate}
+            category={post.data.category}
+            tags={post.data.tags}
+            author={post.data.author}
+          />
+        ))}
+      </div>
+    ) : (
+      <div class="p-12 text-center rounded-2xl bg-dark-card border border-dark-border text-gray-400">
+        该分类下暂无已发布文章，敬请期待更新！
+      </div>
+    )}
+  </div>
+</BaseLayout>

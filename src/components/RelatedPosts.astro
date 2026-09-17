@@ -1,0 +1,30 @@
+---
+import ArticleCard from './ArticleCard.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  title?: string;
+}
+
+const { posts, title = '延伸推荐阅读' } = Astro.props;
+---
+
+{posts.length > 0 && (
+  <section class="mt-12 pt-8 border-t border-dark-border">
+    <h3 class="text-xl font-bold text-white mb-6">{title}</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {posts.map((post) => (
+        <ArticleCard
+          title={post.data.title}
+          description={post.data.description}
+          slug={post.slug}
+          pubDate={post.data.pubDate}
+          category={post.data.category}
+          tags={post.data.tags}
+          author={post.data.author}
+        />
+      ))}
+    </div>
+  </section>
+)}

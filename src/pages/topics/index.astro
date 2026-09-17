@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TopicCluster from '../../components/TopicCluster.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { getCollection } from 'astro:content';
+
+const topics = await getCollection('topics');
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+
+const topicsWithCount = topics.map((topic) => {
+  const count = allPosts.filter((post) => {
+    if (post.data.topics && Array.isArray(post.data.topics) && post.data.topics.length > 0) {
+      return post.data.topics.includes(topic.slug);
+    }
+    if (topic.data.categoryFilter && post.data.category === topic.data.categoryFilter) return true;
+    if (topic.data.tagsFilter && topic.data.tagsFilter.length > 0) {
+      return post.data.tags.some((tag) => topic.data.tagsFilter?.includes(tag));
+    }
+    return false;
+  }).length;
+  return { topic, count };
+});
+
+const breadcrumbItems = [{ title: 'SEO 专题聚合库' }];
+---
+
+<BaseLayout
+  title="专题聚合知识库 - 零基础至高阶指南"
+  description="深度聚合热门主题，包括新手入门专题、服务对比专题、长尾问题排错专题等，助您建立完整知识体系。"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <div class="space-y-3 border-b border-dark-border/80 pb-6">
+      <span class="text-xs font-bold text-brand-glow bg-brand-600/15 border border-brand-500/25 px-3 py-1 rounded-md uppercase tracking-wider">
+        TOPIC CLUSTERS
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        专题聚合知识库
+      </h1>
+      <p class="text-sm text-gray-400 max-w-2xl leading-relaxed">
+        按照特定的业务场景与技术主题，将分散的内容高度聚合，提供结构化的学习路径。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {topicsWithCount.map(({ topic, count }) => (
+        <TopicCluster
+          title={topic.data.title}
+          description={topic.data.description}
+          slug={topic.slug}
+          count={count}
+        />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

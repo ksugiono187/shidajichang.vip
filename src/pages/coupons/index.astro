@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTASection from '../../components/CTASection.astro';
+import { couponData } from '../../data/coupons';
+
+const breadcrumbItems = [{ title: '机场优惠券专区' }];
+
+const couponBrands = [
+  { name: '微风网络 Breezenet', slug: 'breezenet', info: couponData.breezenet },
+  { name: '飞猫云', slug: 'feimaoyun', info: couponData.feimaoyun },
+  { name: '无忧链接', slug: 'wuyoulianjie', info: couponData.wuyoulianjie },
+  { name: '闪跃 FlashLeap', slug: 'flashleap', info: couponData.flashleap },
+  { name: 'Firefly机场', slug: 'firefly', info: couponData.firefly },
+  { name: '全球云', slug: 'quanqiuyun', info: couponData.quanqiuyun },
+  { name: '二猫云', slug: 'ermaoyun', info: couponData.ermaoyun },
+  { name: '光速云 LightSpeed', slug: 'lightspeed', info: couponData.lightspeed },
+  { name: '唯兔云', slug: 'weituyun', info: couponData.weituyun },
+  { name: '星岛梦', slug: 'xingdaomeng', info: couponData.xingdaomeng },
+  { name: 'U1S1', slug: 'u1s1', info: couponData.u1s1 },
+];
+---
+
+<BaseLayout
+  title="机场优惠券 - 限时折扣与专属优惠码"
+  description="收录微风网络、飞猫云、无忧链接、闪跃、Firefly、全球云、二猫云、光速云、唯兔云、星岛梦、U1S1 等品牌的最新专属优惠码与折扣券。"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Page Header -->
+    <div class="space-y-3 border-b border-dark-border/80 pb-6">
+      <span class="text-xs font-bold text-amber-400 bg-amber-600/15 border border-amber-500/25 px-3 py-1 rounded-md uppercase tracking-wider">
+        SPECIAL COUPONS & DISCOUNTS
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        2026 优质机场优惠券专区
+      </h1>
+      <p class="text-sm text-gray-400 max-w-3xl leading-relaxed">
+        独家汇总全网主流品牌最新优惠码与折扣代码，点击按钮即可一键复制优惠码并直达品牌官网使用。
+      </p>
+    </div>
+
+    <!-- Coupons Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {couponBrands.map((brand) => (
+        <div class="p-6 rounded-2xl bg-dark-card border border-dark-border hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-4">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-full inline-block">
+                {brand.info.label}
+              </span>
+              {brand.info.verified && (
+                <span class="text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
+                  ✓ 已实测可核验
+                </span>
+              )}
+            </div>
+            <h3 class="text-lg font-bold text-white tracking-tight">
+              {brand.name}
+            </h3>
+          </div>
+
+          <div class="space-y-2">
+            <div class="p-3 bg-dark-bg/80 rounded-xl border border-dark-border flex items-center justify-between gap-2">
+              <span class="text-xs text-gray-400 font-mono">
+                代码: <strong class="text-amber-300 text-sm select-all">{brand.info.code}</strong>
+              </span>
+              <button
+                type="button"
+                class="copy-btn px-3 py-1 rounded-lg text-xs font-bold text-black bg-amber-400 hover:bg-amber-300 active:scale-95 transition-all cursor-pointer shadow"
+                data-code={brand.info.code}
+              >
+                复制
+              </button>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-gray-400 font-mono px-1">
+              <span>最近核验：<strong class="text-emerald-400 font-normal">{brand.info.verifiedAt}</strong></span>
+              <span>渠道：<strong class="text-indigo-300 font-normal">{brand.info.source}</strong></span>
+              {brand.info.expiresAt && <span>有效期：{brand.info.expiresAt}</span>}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <CTASection
+      title="需要对比各大品牌参数？"
+      subtitle="访问我们的综合排行榜与稳定专区，了解更多线路协议与真实起步价格。"
+      buttonText="查看完整排行榜"
+      buttonHref="/ranking"
+    />
+  </div>
+
+  <script is:inline>
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.copy-btn');
+      if (!btn) return;
+      const code = btn.getAttribute('data-code');
+      if (code) {
+        navigator.clipboard.writeText(code).then(() => {
+          const oldText = btn.innerText;
+          btn.innerText = '✅ 已复制';
+          setTimeout(() => { btn.innerText = oldText; }, 2000);
+        }).catch(() => {
+          prompt('优惠码为：', code);
+        });
+      }
+    });
+  </script>
+</BaseLayout>

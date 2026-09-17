@@ -1,0 +1,59 @@
+---
+import { footerNav } from '../data/nav';
+import { siteConfig } from '../data/site';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-dark-bg border-t border-dark-border mt-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12">
+      <!-- Site Info Column -->
+      <div class="md:col-span-1 space-y-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-sm">
+            十
+          </div>
+          <span class="text-white font-bold text-lg">{siteConfig.name}</span>
+        </div>
+        <p class="text-xs text-gray-400 leading-relaxed">
+          {siteConfig.description}
+        </p>
+        <div class="text-[11px] text-gray-500 border-l-2 border-brand-600/40 pl-2.5 py-1">
+          {siteConfig.disclaimer}
+        </div>
+      </div>
+
+      <!-- Footer Nav Columns -->
+      {footerNav.columns.map((col) => (
+        <div class="space-y-3">
+          <h3 class="text-sm font-semibold text-white tracking-wider uppercase">{col.title}</h3>
+          <ul class="space-y-2">
+            {col.items.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-xs text-gray-400 hover:text-brand-glow transition-colors"
+                >
+                  {item.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom copyright -->
+    <div class="mt-12 pt-6 border-t border-dark-border/60 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
+      <div>
+        © {currentYear} {siteConfig.name}. 保留所有权利。静态 SEO 内容框架示范。
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="/about" class="hover:text-gray-300">关于本站</a>
+        <a href="/coupons" class="hover:text-gray-300">优惠券专区</a>
+        <a href="/robots.txt" class="hover:text-gray-300">robots.txt</a>
+      </div>
+    </div>
+  </div>
+</footer>

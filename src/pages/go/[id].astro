@@ -1,0 +1,44 @@
+---
+import { redirectsMap } from '../../data/redirects';
+
+export async function getStaticPaths() {
+  const keys = Object.keys(redirectsMap);
+  return keys.map((id) => ({
+    params: { id },
+    props: { item: redirectsMap[id] },
+  }));
+}
+
+const { item } = Astro.props;
+
+if (item && item.targetUrl) {
+  return Astro.redirect(item.targetUrl, 302);
+}
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  {item?.targetUrl && (
+    <>
+      <meta http-equiv="refresh" content={`0;url=${item.targetUrl}`} />
+      <script is:inline define:vars={{ targetUrl: item.targetUrl }}>
+        window.location.replace(targetUrl);
+      </script>
+    </>
+  )}
+  <title>正在跳转中...</title>
+</head>
+<body class="bg-gray-950 text-white flex items-center justify-center min-h-screen">
+  <div class="text-center space-y-4">
+    <p class="text-gray-400 text-sm">正在直接跳转至品牌官方网站...</p>
+    {item?.targetUrl && (
+      <a href={item.targetUrl} class="text-indigo-400 underline text-xs">
+        点击此处手动跳转
+      </a>
+    )}
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,42 @@
+---
+interface Props {
+  title: string;
+  desc: string;
+  href: string;
+  tag?: string;
+}
+
+const { title, desc, href, tag } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group block p-6 rounded-2xl bg-dark-card border border-dark-border hover:border-brand-500/50 hover:bg-dark-hover transition-all duration-300 relative overflow-hidden"
+>
+  <div class="flex items-center justify-between mb-3">
+    <div class="w-10 h-10 rounded-xl bg-brand-600/15 border border-brand-500/30 flex items-center justify-center text-brand-glow group-hover:scale-110 transition-transform">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    </div>
+    {tag && (
+      <span class="text-[10px] font-medium text-gray-400 bg-gray-800/80 px-2 py-0.5 rounded border border-gray-700">
+        {tag}
+      </span>
+    )}
+  </div>
+
+  <h3 class="text-lg font-bold text-white group-hover:text-brand-glow transition-colors mb-2">
+    {title}
+  </h3>
+  <p class="text-xs text-gray-400 leading-relaxed">
+    {desc}
+  </p>
+
+  <div class="mt-4 flex items-center text-xs font-semibold text-brand-glow opacity-80 group-hover:opacity-100 transition-opacity">
+    探索栏目
+    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </div>
+</a>

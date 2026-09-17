@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CTASection from '../components/CTASection.astro';
+import { siteConfig } from '../data/site';
+
+const breadcrumbItems = [{ title: '编辑政策与独立性声明' }];
+---
+
+<BaseLayout
+  title="编辑政策与独立性声明 - 十大机场评测"
+  description="了解十大机场评测平台的独立测评原则、利益冲突声明、数据客观性保障与商业中立承诺。"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Header Banner -->
+    <div class="p-8 sm:p-10 rounded-3xl bg-card-gradient border border-emerald-500/30 space-y-4 shadow-2xl relative overflow-hidden">
+      <div class="absolute -right-16 -top-16 w-64 h-64 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <span class="text-xs font-bold text-emerald-300 bg-emerald-600/30 border border-emerald-500/40 px-3 py-1 rounded-lg uppercase tracking-wider">
+        EDITORIAL POLICY & INDEPENDENCE
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+        编辑政策与独立性声明
+      </h1>
+      <p class="text-base text-gray-300 max-w-2xl leading-relaxed">
+        恪守客观中立的独立测评底线，确保每一份评测数据与结论不受任何利益干预。
+      </p>
+    </div>
+
+    <!-- Editorial Prose -->
+    <div class="prose-custom bg-dark-card p-6 sm:p-10 rounded-2xl border border-dark-border text-gray-300 leading-relaxed space-y-8 shadow-xl">
+      <section class="space-y-3">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2 border-b border-gray-800 pb-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+          一、独立性与客观原则
+        </h2>
+        <p>
+          <strong>{siteConfig.name}</strong> 始终坚持独立第三方的立场。我们绝不接受任何服务商付费换取排名优先权、伪造实测数据或删除负面客观评测的要求。所有评分均由底层人工抽样快照结合公开加权算法引擎（Score Engine）归一化计算得出。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2 border-b border-gray-800 pb-2">
+          <span class="w-3 h-3 rounded-full bg-indigo-500"></span>
+          二、利益冲突回避与透明度
+        </h2>
+        <p>
+          本站部分链接包含常规的联名推荐或促销代码，但此类合作绝不会影响我们对任何服务商线路质量的客观评价。如果某服务商线路在晚高峰出现大面积丢包或流量倍率虚高，我们将如实发布风险提示。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2 border-b border-gray-800 pb-2">
+          <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+          三、勘误与修改机制
+        </h2>
+        <p>
+          当收到读者反馈或服务商线路架构发生重大更新时，我们的编辑团队会在 48 小时内完成重新抽样测试，并在相关文章中发布“更新记录”。
+        </p>
+      </section>
+    </div>
+
+    <CTASection
+      title="了解测试方法论"
+      subtitle="查阅我们在真实宽带环境下进行人工抽样测试与记录的方法。"
+      buttonText="查看测试方法"
+      buttonHref="/methodology"
+    />
+  </div>
+</BaseLayout>
