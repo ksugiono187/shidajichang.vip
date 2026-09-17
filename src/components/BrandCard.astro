@@ -13,7 +13,7 @@ interface Props {
 
 const { name, description, slug, category = '网络服务', tags = [] } = Astro.props;
 
-const officialUrl = redirectsMap[slug]?.targetUrl || `/go/${slug}`;
+const officialUrl = `/go/${slug}`;
 const coupon = couponData[slug];
 ---
 
@@ -60,7 +60,7 @@ const coupon = couponData[slug];
     <a
       href={officialUrl}
       target="_blank"
-      rel="noopener noreferrer"
+      rel="nofollow noopener noreferrer"
       class="px-4 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 shadow-glow-sm hover:shadow-glow-md transition-all flex items-center gap-1.5"
     >
       前往官方网站

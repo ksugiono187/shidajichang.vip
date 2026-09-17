@@ -11,6 +11,8 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     mdx(),
-    sitemap(),
+    sitemap({
+      filter: (page) => !page.includes('/go/') && !page.includes('/testing-methodology'),
+    }),
   ],
 });

@@ -219,11 +219,10 @@ const coupon = couponData[slug];
   <!-- Footer Actions Row -->
   <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 border-t border-dark-border/60 text-xs">
     <div class="flex items-center gap-3 w-full sm:w-auto">
-      {queryUrl && queryUrl !== '#' && (
-        <a
-          href={queryUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+      <a
+        href={`/go/${slug}`}
+        target="_blank"
+        rel="nofollow noopener noreferrer"
           class="w-full sm:w-auto px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 shadow-glow-sm hover:shadow-glow-md transition-all text-center flex items-center justify-center gap-1.5"
         >
           前往官方主页查询
